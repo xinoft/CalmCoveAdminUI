@@ -5,6 +5,7 @@ import { sharedRoutes } from './shared/shared.routes';
 import { LoginComponent } from './authentication/login/login.component';
 import { userGroupRoutes } from './user-group/user-group.routes';
 import { userAccountRoutes } from './user-account/user-account-routes';
+import { massageRoutes } from './massage/massage-routes';
 
 export const routes: Routes = [
     {
@@ -14,6 +15,7 @@ export const routes: Routes = [
     ...authenticationRoutes,
     ...userAccountRoutes,
     ...userGroupRoutes,
+    ...massageRoutes,
     ...sharedRoutes,
 
 ];

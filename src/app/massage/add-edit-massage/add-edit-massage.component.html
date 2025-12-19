@@ -1,0 +1,72 @@
+<!-- Add Role Modal -->
+<div class="modal fade" id="massage-add-edit" tabindex="-1" aria-hidden="true" #massageModal>
+	<div class="modal-dialog modal-xl modal-dialog-centered modal-add-new-role">
+		<div class="modal-content p-3 p-md-2">
+			<button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-body" data-select2-id="86">
+				<div class="text-center mb-4">
+					<h3 class="mb-2">{{ massageModeText }} Massage</h3>
+					<!-- <p class="text-muted">Updating user details will receive a privacy audit.</p> -->
+				</div>
+				<form [formGroup]="massageForm" (ngSubmit)="onSubmitUserForm()" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" data-select2-id="editUserForm">
+					<div class="col-12 col-md-3 fv-plugins-icon-container">
+						<label class="form-label" for="massage-name">Name</label>
+						<input type="text" id="massage-name" formControlName="name" name="name" class="form-control" placeholder="Name" />
+						<app-form-error [control]="massageForm.get('name')"></app-form-error>
+					</div>
+                    <div class="col-12 col-md-3 fv-plugins-icon-container">
+						<label class="form-label" for="massage-type">Type</label>
+                        <select class="form-control" formControlName="type" id="massage-type">
+                            <option value="1">Calm Cove Signature Massages</option>
+                            <option value="2">Calm Cove Premium Massages</option>
+                            <option value="3">Calm Cove Experiences Massages</option>
+                        </select>
+						<app-form-error [control]="massageForm.get('type')"></app-form-error>
+					</div>
+                    <div class="col-12 col-md-3 fv-plugins-icon-container">
+						<label class="form-label" for="massage-price">Price</label>
+						<input type="number" id="massage-price" formControlName="price" name="price" class="form-control" placeholder="Price" />
+						<app-form-error [control]="massageForm.get('price')"></app-form-error>
+					</div>
+                    <div class="col-12 col-md-3 fv-plugins-icon-container">
+						<label class="form-label" for="massage-duration">Duration</label>
+						<input type="text" id="massage-duration" formControlName="duration" name="duration" class="form-control" placeholder="Duration" />
+						<app-form-error [control]="massageForm.get('duration')"></app-form-error>
+					</div>
+                    <div class="col-12 fv-plugins-icon-container">
+						<label class="form-label" for="massage-description">Description</label>
+						<textarea id="massage-description" formControlName="description" name="description" class="form-control" placeholder="Description" rows="3"></textarea>
+						<app-form-error [control]="massageForm.get('description')"></app-form-error>
+					</div>
+                    <div class="col-6 fv-plugins-icon-container">
+						<label class="form-label" for="massage-purpose">Purpose</label>
+						<textarea id="massage-purpose" formControlName="purpose" name="purpose" class="form-control" placeholder="Purpose" rows="3"></textarea>
+						<app-form-error [control]="massageForm.get('purpose')"></app-form-error>
+					</div>
+                    <div class="col-6 fv-plugins-icon-container">
+						<label class="form-label" for="massage-bestFor">Best For</label>
+						<textarea id="massage-bestFor" formControlName="bestFor" name="bestFor" class="form-control" placeholder="Best For" rows="3"></textarea>
+						<app-form-error [control]="massageForm.get('bestFor')"></app-form-error>
+					</div>
+                    <div class="col-6 fv-plugins-icon-container">
+						<label class="form-label" for="massage-outcome">Outcome</label>
+						<textarea id="massage-outcome" formControlName="outcome" name="outcome" class="form-control" placeholder="Outcome" rows="3"></textarea>
+						<app-form-error [control]="massageForm.get('outcome')"></app-form-error>
+					</div>
+                    <div class="col-6 fv-plugins-icon-container">
+						<label class="form-label" for="massage-includes">Includes</label>
+						<textarea id="massage-includes" formControlName="includes" name="includes" class="form-control" placeholder="Includes" rows="3"></textarea>
+						<app-form-error [control]="massageForm.get('includes')"></app-form-error>
+					</div>
+					
+					<div class="col-12 text-center action-btns">
+						<button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
+						<button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+					</div>
+					<input type="hidden" />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/ Add Role Modal -->
