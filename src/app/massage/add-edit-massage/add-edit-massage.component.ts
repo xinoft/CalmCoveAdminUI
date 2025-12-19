@@ -34,7 +34,7 @@ export class AddEditMassageComponent implements OnInit {
       name: new FormControl(massage.Name, Validators.required),
       type: new FormControl(massage.Type, Validators.required),
       purpose: new FormControl(massage.Purpose),
-      description: new FormControl(massage.Description),
+      description: new FormControl(massage.Description, Validators.required),
       bestFor: new FormControl(massage.BestFor),
       outcome: new FormControl(massage.Outcome),
       includes: new FormControl(massage.Includes),
