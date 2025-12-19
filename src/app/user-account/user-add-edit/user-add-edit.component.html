@@ -1,0 +1,49 @@
+<!-- Add Role Modal -->
+<div class="modal fade" id="user-add-edit" tabindex="-1" aria-hidden="true" #userGroupModal>
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
+		<div class="modal-content p-3 p-md-5">
+			<button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-body" data-select2-id="86">
+				<div class="text-center mb-4">
+					<h3 class="mb-2">{{ userAccountMode }} User Account</h3>
+					<!-- <p class="text-muted">Updating user details will receive a privacy audit.</p> -->
+				</div>
+				<form [formGroup]="userForm" (ngSubmit)="onSubmitUserForm()" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" data-select2-id="editUserForm">
+					<div class="col-12 col-md-6 fv-plugins-icon-container">
+						<label class="form-label" for="modalEditUserFirstName">First Name</label>
+						<input type="text" id="modalEditUserFirstName" formControlName="firstName" name="modalEditUserFirstName" class="form-control" placeholder="John" />
+						<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+					</div>
+					<div class="col-12 col-md-6 fv-plugins-icon-container">
+						<label class="form-label" for="modalEditUserLastName">Last Name</label>
+						<input type="text" id="modalEditUserLastName" formControlName="lastName" name="modalEditUserLastName" class="form-control" placeholder="Doe" />
+						<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="form-label" for="modalEditUserEmail">Email</label>
+						<input type="text" id="modalEditUserEmail" formControlName="email" name="modalEditUserEmail" class="form-control" placeholder="example@domain.com" />
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="form-label" for="modalEditUserPhone">Phone Number</label>
+						<div class="input-group">
+							<span class="input-group-text">IN (+91)</span>
+							<input type="text" id="modalEditUserPhone" formControlName="phone" name="modalEditUserPhone" class="form-control phone-number-mask" placeholder="2025550111" />
+						</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<label class="form-label" for="modalEditUserCountry">Country</label>
+						<div>
+							<p-multiSelect [options]="userGroupList" [(ngModel)]="selectedUserGroupList" optionLabel="Name" optionValue="Id" styleClass="p-multiselect-override" placeholder="Select Group" [ngModelOptions]="{ standalone: true }"></p-multiSelect>
+						</div>
+					</div>
+					<div class="col-12 text-center action-btns">
+						<button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
+						<button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+					</div>
+					<input type="hidden" />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/ Add Role Modal -->

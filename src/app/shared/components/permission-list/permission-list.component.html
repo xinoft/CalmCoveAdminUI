@@ -1,0 +1,47 @@
+<div class="table-responsive">
+	<table class="table table-flush-spacing">
+		<tbody>
+			<tr>
+				<td class="text-nowrap fw-medium">
+					Administrator Access
+					<i class="ti ti-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Allows a full access to the system"></i>
+				</td>
+				<td>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="selectAll" (change)="selectAll($event)" [(ngModel)]="_permissionService.isPermissionSelectAllCheck" />
+						<label class="form-check-label" for="selectAll"> Select All </label>
+					</div>
+				</td>
+			</tr>
+			@for (permission of userPermissionList; track $index) {
+			<tr>
+				<td class="text-nowrap fw-medium">{{ permission.Name }}</td>
+				<td>
+					<div class="d-flex">
+						<div class="form-check me-3 me-lg-5">
+							<input class="form-check-input" type="checkbox" id="userManagementRead" [(ngModel)]="permission.View" (change)="selectAllCheckChange()" />
+							<label class="form-check-label" for="userManagementRead"> View </label>
+						</div>
+						<div class="form-check me-3 me-lg-5">
+							<input class="form-check-input" type="checkbox" id="userManagementWrite" [(ngModel)]="permission.Add" (change)="selectAllCheckChange()" />
+							<label class="form-check-label" for="userManagementWrite"> Create </label>
+						</div>
+						<div class="form-check me-3 me-lg-5">
+							<input class="form-check-input" type="checkbox" id="userManagementUpdate" [(ngModel)]="permission.Update" (change)="selectAllCheckChange()" />
+							<label class="form-check-label" for="userManagementWrite"> Update </label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="userManagementRemove" [(ngModel)]="permission.Remove" (change)="selectAllCheckChange()" />
+							<label class="form-check-label" for="userManagementCreate"> Remove </label>
+						</div>
+						<div class="form-check" style="display: none">
+							<input class="form-check-input" type="checkbox" id="userManagementCreate" [(ngModel)]="permission.Approve" (change)="selectAllCheckChange()" />
+							<label class="form-check-label" for="userManagementCreate"> Approve </label>
+						</div>
+					</div>
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+</div>

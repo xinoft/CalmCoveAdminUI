@@ -1,0 +1,85 @@
+<div>
+	<h4 class="mb-4">User Accounts</h4>
+	<p class="mb-4">This screen allows administrators to efficiently create and manage user accounts, facilitating the assignment of roles and permissions for improved access control and security.</p>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="mb-3">
+				<div>
+					<input type="text" class="form-control" id="defaultFormControlInput" [(ngModel)]="searchKeyword" placeholder="Name\Phone\Email" aria-describedby="defaultFormControlHelp" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="button-container">
+				<button class="btn btn-primary mb-2 text-nowrap add-new-role waves-effect waves-light" (click)="getUserAccountList()">Filter</button>
+				<button class="btn btn-primary mb-2 text-nowrap add-new-role waves-effect waves-light" (click)="clearUseraccountListFilter()">Clear</button>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="button-container btn-float-right">
+				<button class="btn btn-primary mb-2 text-nowrap add-new-role waves-effect waves-light" (click)="startCreateUserProcess()">Create</button>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<p-table [value]="userAccountList" [lazy]="true" (onSort)="onUserListSort($event)" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '60rem' }">
+			<ng-template pTemplate="header">
+				<tr>
+					<th pSortableColumn="Name">Name <p-sortIcon field="Name"></p-sortIcon></th>
+					<th pSortableColumn="Phone">Phone <p-sortIcon field="Phone"></p-sortIcon></th>
+					<th pSortableColumn="Email">Email <p-sortIcon field="Email"></p-sortIcon></th>
+					<th>Actions</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-userAccount>
+				<tr>
+					<td>{{ userAccount.FirstName + " " + userAccount.LastName }}</td>
+					<td>{{ userAccount.Phone }}</td>
+					<td>{{ userAccount.Email }}</td>
+					<td>
+						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"><i (click)="startUpdateUserProcess(userAccount.Id)" class="text-primary ti ti-pencil"></i></a>
+						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Permission" (click)="getUserMappingListForUpdating(userAccount.Id, userAccount.FirstName + ' ' + userAccount.LastName)"><i class="text-primary ti ti-key"></i></a>
+						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove" (click)="removeUserAccount(userAccount.Id)"><i class="ti ti-trash btn-text"></i></a>
+					</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>
+<!-- Add Role Modal -->
+<div class="modal fade" id="user-permission-modify" tabindex="-1" aria-hidden="true" #userGroupModal>
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
+		<div class="modal-content p-3 p-md-5">
+			<button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-body">
+				<div class="text-center mb-4">
+					<h3 class="role-title mb-2">Update Permission</h3>
+					<p class="text-muted">Set User Permissions</p>
+					<label class="form-label" for="modalRoleName">
+						Name: <b>{{ selectedUserName }}</b>
+					</label>
+				</div>
+				<!-- Add role form -->
+				<form id="addRoleForm" class="row g-3" onsubmit="return false">
+					<div class="col-12">
+						<!-- <h5>Role Permissions</h5> -->
+						<!-- Permission table -->
+						<app-permission-list [userPermissionList]="userPermissionList"></app-permission-list>
+						<!-- Permission table -->
+					</div>
+					<div class="col-12 text-center mt-4">
+						<button type="button" class="btn btn-primary me-sm-3 me-1" (click)="updateUserPermission()">Update</button>
+						<button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+					</div>
+				</form>
+				<!--/ Add role form -->
+			</div>
+		</div>
+	</div>
+</div>
+<!--/ Add Role Modal -->
+<app-user-add-edit 
+	[userAccountMode]="userAccountMode" 
+	#userAddEdit
+	[refresUserAccountList]="getUserAccountListFromChild">
+</app-user-add-edit>
