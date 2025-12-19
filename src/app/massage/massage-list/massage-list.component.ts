@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MassageTypePipe } from '../../shared/pipes/massage-type.pipe';
 import { PricePipe } from '../../shared/pipes/price.pipe';
 import { AddEditMassageComponent } from '../add-edit-massage/add-edit-massage.component';
+import { ToastMessage, ToastType } from '../../shared/models/ToastMessage';
 
 @Component({
   selector: 'app-massage-list',
@@ -81,13 +82,14 @@ export class MassageListComponent {
         next: (response) => {
           if (response.Success) {
             this.getMassageList(); // Refresh the list
+            this._utilityService.showToast(new ToastMessage(ToastType.Success, response.SuccessMessage, "Massage"));
           } else {
-            console.error('Failed to delete massage:', response.Message);
+            this._utilityService.showToast(new ToastMessage(ToastType.Error, response.ErrorMessage, "Massage"));
           }
           this._utilityService.showLoader(false);
         },
         error: (error) => {
-          console.error('Error deleting massage:', error);
+          this._utilityService.showToast(new ToastMessage(ToastType.Error, "Some error occurred", "Massage"));
           this._utilityService.showLoader(false);
         }
       });

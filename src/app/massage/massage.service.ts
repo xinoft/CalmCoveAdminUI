@@ -11,35 +11,37 @@ import { environment } from '../../environments/environment.development';
 })
 export class MassageService {
 
-  constructor(private _http: HttpClient, private _sharedService: SharedService) {}
-  
-    getMassageList(searchKeyword: string): Observable<any> {
-      var params = new HttpParams().append("SearchKeyword", searchKeyword);
-      return this._http.get<ApiResponse<MassageModel[]>>(`${environment.baseUrl}Massage/List`, { params: params });
-    }
+  constructor(private _http: HttpClient, private _sharedService: SharedService) { }
 
-    createMassage(massage: MassageModel): Observable<any> {
-      return this._http.post<ApiResponse<MassageModel>>(`${environment.baseUrl}Massage/Create`, massage);
-    }
+  getMassageList(searchKeyword: string): Observable<any> {
+    var params = new HttpParams().append("SearchKeyword", searchKeyword);
+    return this._http.get<ApiResponse<MassageModel[]>>(`${environment.baseUrl}Massage/List`, { params: params });
+  }
 
-    updateMassage(massage: MassageModel): Observable<any> {
-      return this._http.put<ApiResponse<MassageModel>>(`${environment.baseUrl}Massage/Update`, massage);
-    }
+  createMassage(massage: MassageModel): Observable<any> {
+    return this._http.post<ApiResponse<MassageModel>>(`${environment.baseUrl}Massage/Create`, massage);
+  }
 
-    saveMassage(massage: MassageModel): Observable<any> {
-      if (massage.Id && massage.Id > 0) {
-        return this.updateMassage(massage);
-      } else {
-        return this.createMassage(massage);
-      }
-    }
+  updateMassage(massage: MassageModel): Observable<any> {
+    return this._http.post<ApiResponse<MassageModel>>(`${environment.baseUrl}Massage/Update`, massage);
+  }
 
-    getMassageById(id: number): Observable<any> {
-      var params = new HttpParams().append("id", id);
-      return this._http.get<ApiResponse<MassageModel>>(`${environment.baseUrl}Massage/Get`, { params: params });
+  saveMassage(massage: any): Observable<any> {
+    if (massage.id && massage.id > 0) {
+      return this.updateMassage(massage);
+    } else {
+      return this.createMassage(massage);
     }
- 
-    deleteMassage(id: number): Observable<any> {
-      return this._http.delete<ApiResponse<boolean>>(`${environment.baseUrl}Massage/Delete/${id}`);
-    }
+  }
+
+  getMassageById(id: number): Observable<any> {
+    var params = new HttpParams().append("id", id);
+    return this._http.get<ApiResponse<MassageModel>>(`${environment.baseUrl}Massage/Get`, { params: params });
+  }
+
+  deleteMassage(id: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('massageId', id.toString());
+    return this._http.post<ApiResponse<boolean>>(`${environment.baseUrl}Massage/Remove`, formData);
+  }
 }

@@ -38,12 +38,13 @@ export class AddEditMassageComponent implements OnInit {
       bestFor: new FormControl(massage.BestFor),
       outcome: new FormControl(massage.Outcome),
       includes: new FormControl(massage.Includes),
-      duration: new FormControl(massage.Duration, Validators.required),
-      price: new FormControl(massage.Price, [Validators.required, Validators.min(0)]),
+      duration: new FormControl(massage.Duration, [Validators.required, Validators.min(30), Validators.max(200)]),
+      price: new FormControl(massage.Price, [Validators.required, Validators.min(1)]),
     });
   }
 
   onSubmitUserForm() {
+    debugger
     if (this.massageForm.valid) {
       const massageData = this.massageForm.value;
       this._massageService.saveMassage(massageData).subscribe({
