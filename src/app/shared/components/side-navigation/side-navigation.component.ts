@@ -33,6 +33,14 @@ export class SideNavigationComponent implements AfterViewInit {
 					HaveSubMenu: false,
 					Links: [],
 				},
+				{
+					Name: "Promotion",
+					Route: "/promotion/promotion-list",
+					Icon: "tf-icons ti ti-gift-card",
+					Id: "promotion-menu",
+					HaveSubMenu: false,
+					Links: [],
+				},
 			],
 		},
 		{
