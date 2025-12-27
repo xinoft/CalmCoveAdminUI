@@ -80,28 +80,6 @@ export class SideNavigationComponent implements AfterViewInit {
 				// 	],
 				// },
 			],
-		},
-		{
-			Container: "Inventory",
-			Links: [
-				{
-					Name: "Unauthorized",
-					Route: "",
-					Icon: "tf-icons ti ti-users-group",
-					Id: "user-group-menu-2",
-					HaveSubMenu: true,
-					Links: [
-						{
-							Name: "unauthorized",
-							Route: "/error/unauthorized",
-							Icon: "tf-icons ti ti-users-group",
-							Id: "user-remove-sub-menu-m",
-							HaveSubMenu: false,
-							Links: [],
-						},
-					],
-				},
-			],
 		}
 	];
 

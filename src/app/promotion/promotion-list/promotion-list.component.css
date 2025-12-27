@@ -1,0 +1,16 @@
+.button-container {
+    display: flex;
+    gap: 8px;
+}
+.btn-text {
+    color: red !important;
+}
+.item-edit {
+    margin-right: 10px;
+}
+.btn-float-right {
+    float: right;
+}
+.align-items-end {
+    align-items: flex-end;
+}

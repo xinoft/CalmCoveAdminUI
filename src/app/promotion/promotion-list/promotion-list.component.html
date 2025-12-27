@@ -1,1 +1,66 @@
-<p>promotion-list works!</p>
+<div>
+	<h4 class="mb-4">Promotions</h4>
+	<p class="mb-4">This screen allows administrators to efficiently manage promotions, including coupon codes, discount settings, and usage tracking.</p>
+	<div class="row align-items-end">
+		<div class="col-md-2">
+			<div class="mb-3">
+				<label class="form-label">Starting Date</label>
+				<input type="date" class="form-control" [(ngModel)]="startingDate" />
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="mb-3">
+				<label class="form-label">Ending Date</label>
+				<input type="date" class="form-control" [(ngModel)]="endingDate" />
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="mb-3">
+				<label class="form-label">Coupon</label>
+				<input type="text" class="form-control" [(ngModel)]="coupon" placeholder="Enter coupon code" />
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="button-container mb-3">
+				<button class="btn btn-primary text-nowrap add-new-role waves-effect waves-light" (click)="getPromotionList()">Filter</button>
+				<button class="btn btn-primary text-nowrap add-new-role waves-effect waves-light" (click)="clearPromotionListFilter()">Clear</button>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="button-container btn-float-right mb-3">
+				<button class="btn btn-primary text-nowrap add-new-role waves-effect waves-light" (click)="startCreatePromotionProcess()">Create</button>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<p-table [value]="promotionList" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '80rem' }">
+			<ng-template pTemplate="header">
+				<tr>
+				<th>Coupon</th>
+                <th>Type</th>
+				<th>Starting Date</th>
+				<th>Ending Date</th>
+				<th>Total Count</th>
+				<th>Used Count</th>
+				<th>Offer</th>
+					<th>Actions</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-promotion>
+				<tr>
+					<td>{{ promotion.Coupon == '' ? 'N/A' : promotion.Coupon }}</td>
+                    <td>{{ promotion.CouponType == 1 ? 'Simple' : 'Auto Generated' }}</td>
+					<td>{{ formatDate(promotion.StartingDate) }}</td>
+					<td>{{ formatDate(promotion.EndingDate) }}</td>
+					<td>{{ promotion.Count }}</td>
+					<td>{{ promotion.UsedCount }}</td>
+					<td>{{ promotion.DiscountMode === 1 ? 'Flat ' + (promotion.Amount | price) : (promotion.Percentage + '%') }}</td>
+					<td>
+						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"><i (click)="startUpdatePromotionProcess(promotion.id)" class="text-primary ti ti-pencil"></i></a>
+						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove" (click)="removePromotion(promotion.id)"><i class="ti ti-trash btn-text"></i></a>
+					</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>
