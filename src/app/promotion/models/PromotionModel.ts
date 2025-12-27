@@ -1,5 +1,5 @@
 export class PromotionModel {
-  id: number = 0;
+  Id: number = 0;
   Coupon: string = '';
   CouponType: number = 0;
   StartingDate: Date = new Date();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { TableModule } from "primeng/table";
 import { PromotionService } from "../promotion.service";
 import { UtilityService } from "../../shared/services/utility.service";
@@ -9,19 +9,25 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { PromotionModel } from "../models/PromotionModel";
 import { PricePipe } from "../../shared/pipes/price.pipe";
+import { PromotionItemListComponent } from "../promotion-item-list/promotion-item-list.component";
+import { PromotionAddEditComponent } from "../promotion-add-edit/promotion-add-edit.component";
 
 @Component({
 	selector: "app-promotion-list",
 	standalone: true,
-	imports: [TableModule, FormsModule, CommonModule, PricePipe],
+	imports: [TableModule, FormsModule, CommonModule, PricePipe, PromotionItemListComponent, PromotionAddEditComponent],
 	templateUrl: "./promotion-list.component.html",
 	styleUrl: "./promotion-list.component.css",
 })
 export class PromotionListComponent implements OnInit {
+	@ViewChild("promotionItemList") promotionItemListComponent: PromotionItemListComponent | null = null;
+	@ViewChild("promotionAddEdit") promotionAddEditComponent: PromotionAddEditComponent | null = null;
+	
 	promotionList: PromotionModel[] = [];
 	startingDate: string;
 	endingDate: string;
 	coupon: string = "";
+	promotionMode = "";
 
 	constructor(private _promotionService: PromotionService, private _utilityService: UtilityService) {
 		const today = new Date();
@@ -63,6 +69,10 @@ export class PromotionListComponent implements OnInit {
 		});
 	}
 
+	get getPromotionListFromChild() {
+		return this.getPromotionList.bind(this);
+	}
+
 	removePromotion(id: number) {
 		if (!window.confirm("Are you sure you want to remove this Promotion")) {
 			return;
@@ -81,11 +91,26 @@ export class PromotionListComponent implements OnInit {
 	}
 
 	startCreatePromotionProcess() {
-		// TODO: Implement create promotion modal/dialog
+		this.promotionMode = "Create";
+		this.promotionAddEditComponent?.initPromotionFormGroup(new PromotionModel());
+		this._utilityService.showModal(true, "promotion-add-edit");
 	}
 
 	startUpdatePromotionProcess(id: number) {
-		// TODO: Implement update promotion modal/dialog
+		this.promotionMode = "Update";
+		this._utilityService.showLoader(true);
+		this._promotionService.getPromotion(id).subscribe((response: ApiResponse<PromotionModel>) => {
+			if (response.Success) {
+				const promotion = response.Result;
+				this.promotionAddEditComponent?.initPromotionFormGroup(promotion);
+				this._utilityService.showModal(true, "promotion-add-edit");
+			}
+			this._utilityService.showLoader(false);
+		});
+	}
+
+	startViewPromotionItemProcess(id: number, promotionType: number, coupon: string) {
+		this.promotionItemListComponent?.getPromotionItemList(id, promotionType, coupon);
 	}
 
 	formatDate(date: Date): string {

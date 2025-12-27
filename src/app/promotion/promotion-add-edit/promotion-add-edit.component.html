@@ -1,0 +1,85 @@
+<div class="modal fade" id="promotion-add-edit" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content p-3 p-md-5">
+            <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"
+                (click)="closeModal()"></button>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <h3 class="role-title mb-2">{{ promotionMode === 'Create' ? 'Create' : 'Update' }} Promotion</h3>
+                    <p class="text-muted">{{ promotionMode === 'Create' ? 'Add a new promotion' : 'Edit promotion
+                        details' }}</p>
+                </div>
+                <form [formGroup]="promotionForm" (ngSubmit)="savePromotion()">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Coupon Code</label>
+                            <input type="text" class="form-control" formControlName="coupon"
+                                placeholder="Enter coupon code" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Coupon Type</label>
+                            <select class="form-select" formControlName="couponType">
+                                <option value="1" selected>Simple</option>
+                                <option value="2">Auto Generated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Starting Date</label>
+                            <input type="date" class="form-control" formControlName="startingDate" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ending Date</label>
+                            <input type="date" class="form-control" formControlName="endingDate" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Total Count</label>
+                            <input type="number" class="form-control" formControlName="count"
+                                placeholder="Enter count" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Discount Mode</label>
+                            <select class="form-select" formControlName="discountMode">
+                                <option value="">Select Mode</option>
+                                <option value="1">Flat Amount</option>
+                                <option value="2">Percentage</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3"
+                            *ngIf="promotionForm.get('discountMode')?.value === '1' || promotionForm.get('discountMode')?.value === 1">
+                            <label class="form-label">Amount</label>
+                            <input type="number" class="form-control" formControlName="amount"
+                                placeholder="Enter amount" />
+                        </div>
+                        <div class="col-md-6 mb-3"
+                            *ngIf="promotionForm.get('discountMode')?.value === '2' || promotionForm.get('discountMode')?.value === 2">
+                            <label class="form-label">Percentage</label>
+                            <input type="number" class="form-control" formControlName="percentage"
+                                placeholder="Enter percentage" min="0" max="100" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Minimum Amount</label>
+                            <input type="number" class="form-control" formControlName="minimumAmount"
+                                placeholder="Enter minimum amount" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1">{{ promotionMode === 'Create' ?
+                            'Create' : 'Update' }}</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close"
+                            (click)="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

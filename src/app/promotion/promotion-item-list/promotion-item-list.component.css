@@ -1,0 +1,18 @@
+/* Promotion Item List styles */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.6rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  padding: 0.6rem;
+}
+
+.status-used {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.status-not-used {
+  color: #6c757d;
+  font-weight: 500;
+}
