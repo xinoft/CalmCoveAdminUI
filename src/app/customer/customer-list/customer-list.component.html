@@ -35,7 +35,7 @@
 					<td>{{ customer.Phone }}</td>
 					<td>{{ customer.Email }}</td>
 					<td>{{ customer.Gender }}</td>
-					<td>{{ customer.WalletBalance }}</td>
+					<td>{{ customer.WalletBalance| price }}</td>
 					<td>
 						<span *ngIf="customer.IsActive" class="badge bg-success status-badge" (click)="toggleCustomerStatus(customer.Id, customer.IsActive)" style="cursor: pointer;">Active</span>
 						<span *ngIf="!customer.IsActive" class="badge bg-danger status-badge" (click)="toggleCustomerStatus(customer.Id, customer.IsActive)" style="cursor: pointer;">Inactive</span>

@@ -14,7 +14,7 @@ export class CustomerService {
 
   getCustomerList(searchKeyword: string): Observable<any> {
     var params = new HttpParams()
-      .append('SearchKeyword', searchKeyword);
+      .append('searchKeyword', searchKeyword);
     return this._http.get<ApiResponse<CustomerModel[]>>(`${environment.baseUrl}Customer/GetCusomerList`, { params: params });
   }
 

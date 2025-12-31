@@ -7,11 +7,12 @@ import { ToastMessage, ToastType } from '../../shared/models/ToastMessage';
 import { FormsModule } from '@angular/forms';
 import { CustomerModel } from '../models/CustomerModel';
 import { CommonModule } from '@angular/common';
+import { PricePipe } from "../../shared/pipes/price.pipe";
 
 @Component({
   selector: 'app-customer-list',
   standalone: true,
-  imports: [TableModule, FormsModule,CommonModule],
+  imports: [TableModule, FormsModule, CommonModule, PricePipe],
   templateUrl: './customer-list.component.html',
   styleUrl: './customer-list.component.css'
 })
