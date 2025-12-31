@@ -1,4 +1,4 @@
 export const environment = {
     production:true,
-    baseUrl:'https://localhost:7264/'
+    baseUrl:'https://api.calmcove.ae/'
 };

@@ -1,0 +1,51 @@
+<div>
+	<h4 class="mb-4">Customers</h4>
+	<p class="mb-4">This screen allows administrators to efficiently manage customer accounts and view customer details.</p>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="mb-3">
+				<div>
+					<input type="text" class="form-control" id="defaultFormControlInput" [(ngModel)]="searchKeyword" placeholder="Name\Phone\Email" aria-describedby="defaultFormControlHelp" />
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="button-container">
+				<button class="btn btn-primary mb-2 text-nowrap add-new-role waves-effect waves-light" (click)="getCustomerList()">Filter</button>
+				<button class="btn btn-primary mb-2 text-nowrap add-new-role waves-effect waves-light" (click)="clearCustomerListFilter()">Clear</button>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<p-table [value]="customerList" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '60rem' }">
+			<ng-template pTemplate="header">
+				<tr>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Gender</th>
+					<th>Wallet Balance</th>
+					<th>Status</th>
+					<th>Actions</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-customer>
+				<tr>
+					<td>{{ customer.FirstName + " " + customer.LastName }}</td>
+					<td>{{ customer.Phone }}</td>
+					<td>{{ customer.Email }}</td>
+					<td>{{ customer.Gender }}</td>
+					<td>{{ customer.WalletBalance }}</td>
+					<td>
+						<span *ngIf="customer.IsActive" class="badge bg-success status-badge" (click)="toggleCustomerStatus(customer.Id, customer.IsActive)" style="cursor: pointer;">Active</span>
+						<span *ngIf="!customer.IsActive" class="badge bg-danger status-badge" (click)="toggleCustomerStatus(customer.Id, customer.IsActive)" style="cursor: pointer;">Inactive</span>
+					</td>
+					<td>
+						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i (click)="removeCustomer(customer.Id)" class="text-primary ti ti-eye"></i></a>
+						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove" (click)="removeCustomer(customer.Id)"><i class="ti ti-trash btn-text"></i></a>
+					</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>

@@ -7,6 +7,7 @@ import { userGroupRoutes } from './user-group/user-group.routes';
 import { userAccountRoutes } from './user-account/user-account-routes';
 import { massageRoutes } from './massage/massage-routes';
 import { promotionRoutes } from './promotion/promotion.route';
+import { customerRoutes } from './customer/customer.routes';
 
 export const routes: Routes = [
     {
@@ -18,6 +19,7 @@ export const routes: Routes = [
     ...userGroupRoutes,
     ...massageRoutes,
     ...promotionRoutes,
+    ...customerRoutes,
     ...sharedRoutes,
 
 ];

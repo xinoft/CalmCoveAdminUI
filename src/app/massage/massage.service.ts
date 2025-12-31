@@ -4,7 +4,7 @@ import { SharedService } from '../shared/services/shared.service';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../shared/models/ApiResponse';
 import { MassageModel } from './models/MassageModel';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

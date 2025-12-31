@@ -1,0 +1,19 @@
+.button-container {
+    display: flex;
+    gap: 8px;
+    /* Adjust the gap as needed */
+}
+.btn-text {
+    color: red !important;
+}
+.item-edit {
+    margin-right: 10px; /* Adds space to the right of each link */
+}
+.btn-float-right {
+    float: right;
+}
+.status-badge {
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+}

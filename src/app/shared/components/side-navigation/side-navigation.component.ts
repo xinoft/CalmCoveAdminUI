@@ -41,6 +41,14 @@ export class SideNavigationComponent implements AfterViewInit {
 					HaveSubMenu: false,
 					Links: [],
 				},
+				{
+					Name: "Customer",
+					Route: "/customer/customer-list",
+					Icon: "tf-icons ti ti-user",
+					Id: "customer-menu",
+					HaveSubMenu: false,
+					Links: [],
+				},
 			],
 		},
 		{
