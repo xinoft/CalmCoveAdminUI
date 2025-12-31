@@ -35,4 +35,8 @@ export class CustomerService {
     formData.append('status', status.toString());
     return this._http.post<any>(`${environment.baseUrl}Customer/SetCustomerActiveStatus`, formData);
   }
+
+  updateCustomer(data: any): Observable<any> {
+    return this._http.post<any>(`${environment.baseUrl}Customer/UpdateCustomerAccount`, data);
+  }
 }

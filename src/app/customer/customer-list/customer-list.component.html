@@ -41,11 +41,17 @@
 						<span *ngIf="!customer.IsActive" class="badge bg-danger status-badge" (click)="toggleCustomerStatus(customer.Id, customer.IsActive)" style="cursor: pointer;">Inactive</span>
 					</td>
 					<td>
-						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i (click)="removeCustomer(customer.Id)" class="text-primary ti ti-eye"></i></a>
-						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove" (click)="removeCustomer(customer.Id)"><i class="ti ti-trash btn-text"></i></a>
+					<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" (click)="startUpdateCustomerProcess(customer.Id)"><i class="text-primary ti ti-pencil"></i></a>
+					<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove" (click)="removeCustomer(customer.Id)"><i class="ti ti-trash btn-text"></i></a>
 					</td>
 				</tr>
 			</ng-template>
 		</p-table>
 	</div>
 </div>
+
+<app-add-edit-customer 
+	[customerModeText]="customerModeText" 
+	#customerAddEdit
+	[refreshCustomerList]="getCustomerListFromChild">
+</app-add-edit-customer>

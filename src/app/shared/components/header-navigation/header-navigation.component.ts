@@ -11,7 +11,12 @@ import { Router } from "@angular/router";
 	styleUrl: "./header-navigation.component.css",
 })
 export class HeaderNavigationComponent {
-	constructor(private _authService: AuthenticationService, private _utilityService: UtilityService, private _routerService: Router) {}
+	
+	userName = "John Doe";	
+
+	constructor(private _authService: AuthenticationService, private _utilityService: UtilityService, private _routerService: Router) {
+		this.userName = localStorage.getItem("user_name") || "John Doe";
+	}
 
 	logout() {
 		this._utilityService.showLoader(true);

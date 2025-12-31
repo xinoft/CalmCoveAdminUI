@@ -1,0 +1,51 @@
+<!-- Add Customer Modal -->
+<div class="modal fade" id="customer-add-edit" tabindex="-1" aria-hidden="true" #customerModal>
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
+		<div class="modal-content p-3 p-md-2">
+			<button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-body" data-select2-id="86">
+				<div class="text-center mb-4">
+					<h3 class="mb-2">{{ customerModeText }} Customer</h3>
+				</div>
+				<form [formGroup]="customerForm" (ngSubmit)="onSubmitCustomerForm()" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+					<div class="col-12 col-md-6 fv-plugins-icon-container">
+						<label class="form-label" for="customer-firstName">First Name</label>
+						<input type="text" id="customer-firstName" formControlName="firstName" name="firstName" class="form-control" placeholder="First Name" />
+						<app-form-error [control]="customerForm.get('firstName')"></app-form-error>
+					</div>
+					<div class="col-12 col-md-6 fv-plugins-icon-container">
+						<label class="form-label" for="customer-lastName">Last Name</label>
+						<input type="text" id="customer-lastName" formControlName="lastName" name="lastName" class="form-control" placeholder="Last Name" />
+						<app-form-error [control]="customerForm.get('lastName')"></app-form-error>
+					</div>
+					<div class="col-12 col-md-6 fv-plugins-icon-container">
+						<label class="form-label" for="customer-phone">Phone</label>
+						<input type="text" id="customer-phone" formControlName="phone" name="phone" class="form-control" placeholder="Phone" />
+						<app-form-error [control]="customerForm.get('phone')"></app-form-error>
+					</div>
+					<div class="col-12 col-md-6 fv-plugins-icon-container">
+						<label class="form-label" for="customer-gender">Gender</label>
+						<select class="form-control" formControlName="gender" id="customer-gender">
+							<option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</option>
+						</select>
+						<app-form-error [control]="customerForm.get('gender')"></app-form-error>
+					</div>
+					<div class="col-12 col-md-6 fv-plugins-icon-container">
+						<label class="form-label" for="customer-promotionMethod">Promotion Method</label>
+						<select class="form-control" formControlName="promotionMethod" id="customer-promotionMethod">
+							<option *ngFor="let option of promotionMethodOptions" [value]="option.value">{{ option.label }}</option>
+						</select>
+						<app-form-error [control]="customerForm.get('promotionMethod')"></app-form-error>
+					</div>
+					
+					<div class="col-12 text-center action-btns">
+						<button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
+						<button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+					</div>
+					<input type="hidden" formControlName="customerId" />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/ Add Customer Modal -->
