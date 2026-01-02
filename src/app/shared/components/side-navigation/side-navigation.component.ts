@@ -26,6 +26,14 @@ export class SideNavigationComponent implements AfterViewInit {
 					Links: [],
 				},
 				{
+					Name: "Bookings",
+					Route: "/booking/booking-list",
+					Icon: "tf-icons ti ti-article",
+					Id: "booking-menu",
+					HaveSubMenu: false,
+					Links: [],
+				},
+				{
 					Name: "Massage",
 					Route: "/massage/massage-list",
 					Icon: "tf-icons ti ti-massage",

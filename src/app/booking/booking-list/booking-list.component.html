@@ -1,0 +1,94 @@
+<div>
+    <h4 class="mb-4">Bookings</h4>
+    <p class="mb-4">This screen allows administrators to view and manage all massage bookings, track booking status, and customer details.</p>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="mb-3">
+                <div>
+                    <input type="text" class="form-control" id="searchKeyword" [(ngModel)]="searchKeyword"
+                        placeholder="Search bookings..." aria-describedby="defaultFormControlHelp" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="mb-3">
+                <div>
+                    <select class="form-control" [(ngModel)]="selectedStatus" id="statusFilter">
+                        <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="mb-3">
+                <div>
+                    <select class="form-control" [(ngModel)]="selectedOrderBy" id="orderByFilter">
+                        <option *ngFor="let option of orderByOptions" [value]="option.value">{{ option.label }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="button-container">
+                <button class="btn btn-primary mb-2 text-nowrap add-new-role waves-effect waves-light"
+                    (click)="getBookingList()">Filter</button>
+                <button class="btn btn-primary mb-2 text-nowrap add-new-role waves-effect waves-light"
+                    (click)="clearBookingListFilter()">Clear</button>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <p-table [value]="bookingList" styleClass="p-datatable-striped"
+            [tableStyle]="{ 'min-width': '100%' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Customer</th>
+                    <th>Massage</th>
+                    <th>Slot Time</th>
+                    <th>Order Time</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-booking>
+                <tr>
+                    <td>{{ booking.Id }}</td>
+                    <td>
+                        <span *ngIf="booking.CustomerAccount">
+                            {{ booking.CustomerAccount.FirstName + ' ' + booking.CustomerAccount.LastName }}
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngIf="booking.Massage">
+                            {{ booking.Massage.Name }}
+                        </span>
+                    </td>
+                    <td>{{ booking.IntialSlotTime | date: 'short' }}</td>
+                    <td>{{ booking.CreatedTime | date: 'short' }}</td>
+                    <td>
+                        <span *ngIf="booking.BookingTransaction">
+                            {{ booking.BookingTransaction.TotalAmount | price }}
+                        </span>
+                    </td>
+                    <td>
+                        <span [ngClass]="getStatusClass(booking.Status)" class="badge" style="width: 80px;text-align: center;">
+                            {{ getStatusLabel(booking.Status) }}
+                        </span>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="View/Edit"><i (click)="viewEditBooking(booking.Id)"
+                                class="text-primary ti ti-eye"></i></a>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<app-add-edit-booking 
+	#bookingAddEdit
+	[refreshBookingList]="getBookingListFromChild">
+</app-add-edit-booking>

@@ -8,6 +8,7 @@ import { userAccountRoutes } from './user-account/user-account-routes';
 import { massageRoutes } from './massage/massage-routes';
 import { promotionRoutes } from './promotion/promotion.route';
 import { customerRoutes } from './customer/customer.routes';
+import { bookingRoutes } from './booking/booking.route';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,7 @@ export const routes: Routes = [
     ...massageRoutes,
     ...promotionRoutes,
     ...customerRoutes,
+    ...bookingRoutes,
     ...sharedRoutes,
 
 ];

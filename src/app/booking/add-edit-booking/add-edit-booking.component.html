@@ -1,0 +1,116 @@
+<!-- View/Edit Booking Modal -->
+<div class="modal fade" id="booking-add-edit" tabindex="-1" aria-hidden="true" #bookingModal>
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-add-new-role">
+        <div class="modal-content p-3 p-md-2">
+            <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body" data-select2-id="86">
+                <div class="text-center mb-4">
+                    <h3 class="mb-2">Update Booking</h3>
+                </div>
+                <form [formGroup]="bookingForm" (ngSubmit)="onSubmitBookingForm()"
+                    class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                    <!-- Massage Details Section -->
+                    <div class="row">
+                        <div class="col-12 col-md-6 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-massageName">Massage Name</label>
+                            <input type="text" id="booking-massageName" formControlName="massageName" name="massageName"
+                                class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-6 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-initialSlotTime">Initial Slot Time</label>
+                            <input type="datetime-local" id="booking-initialSlotTime" formControlName="initialSlotTime"
+                                name="initialSlotTime" class="form-control" />
+                        </div>
+                    </div>
+                    <hr>
+
+
+                    <!-- Customer Details Section -->
+                    <div class="row">
+                        <div class="col-12 col-md-4 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-customerName">Customer Name</label>
+                            <input type="text" id="booking-customerName" formControlName="customerName"
+                                name="customerName" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-4 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-customerPhone">Phone</label>
+                            <input type="text" id="booking-customerPhone" formControlName="customerPhone"
+                                name="customerPhone" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-4 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-customerEmail">Email</label>
+                            <input type="email" id="booking-customerEmail" formControlName="customerEmail"
+                                name="customerEmail" class="form-control" />
+                        </div>
+                    </div>
+                    <hr>
+
+
+                    <!-- Amount Details Section -->
+                    <div class="row">
+                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-bookingAmount">Booking Amount</label>
+                            <input type="number" id="booking-bookingAmount" formControlName="bookingAmount"
+                                name="bookingAmount" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-deliveryAmount">Delivery Amount</label>
+                            <input type="number" id="booking-deliveryAmount" formControlName="deliveryAmount"
+                                name="deliveryAmount" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-discountAmount">Discount Amount</label>
+                            <input type="number" id="booking-discountAmount" formControlName="discountAmount"
+                                name="discountAmount" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-totalAmount">Total Amount</label>
+                            <input type="number" id="booking-totalAmount" formControlName="totalAmount"
+                                name="totalAmount" class="form-control" />
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Editable Fields Section -->
+                    <div class="row">
+                        <div class="col-12 col-md-4 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-finalSlotTime">Final Slot Time</label>
+                            <input type="datetime-local" id="booking-finalSlotTime" formControlName="finalSlotTime"
+                                name="finalSlotTime" class="form-control" />
+                            <app-form-error [control]="bookingForm.get('finalSlotTime')"></app-form-error>
+                        </div>
+                        <div class="col-12 col-md-4 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-assignee">Assignee</label>
+                            <p-dropdown [options]="usersList"
+                                optionLabel="FirstName" optionValue="Id" styleClass="p-multiselect-override"
+                                placeholder="Select Assignee"  formControlName="assignee"></p-dropdown>
+                            <app-form-error [control]="bookingForm.get('assignee')"></app-form-error>
+                        </div>
+                        <div class="col-12 col-md-4 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-status">Status</label>
+                            <select class="form-control" formControlName="status" id="booking-status">
+                                <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}
+                                </option>
+                            </select>
+                            <app-form-error [control]="bookingForm.get('status')"></app-form-error>
+                        </div>
+                        <div class="col-12 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-notes">Notes</label>
+                            <textarea id="booking-notes" formControlName="notes" name="notes" class="form-control"
+                                rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center action-btns">
+                        <button type="submit"
+                            class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
+                        <button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal"
+                            aria-label="Close">Cancel</button>
+                    </div>
+                    <input type="hidden" formControlName="bookingId" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ View/Edit Booking Modal -->
