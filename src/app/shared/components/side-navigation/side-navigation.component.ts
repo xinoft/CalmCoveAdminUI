@@ -62,14 +62,14 @@ export class SideNavigationComponent implements AfterViewInit {
 		{
 			Container: "User & Access",
 			Links: [
-				{
-					Name: "User Groups",
-					Route: "/user-group/group-list",
-					Icon: "tf-icons ti ti-users-group",
-					Id: "user-group-menu",
-					HaveSubMenu: false,
-					Links: [],
-				},
+				// {
+				// 	Name: "User Groups",
+				// 	Route: "/user-group/group-list",
+				// 	Icon: "tf-icons ti ti-users-group",
+				// 	Id: "user-group-menu",
+				// 	HaveSubMenu: false,
+				// 	Links: [],
+				// },
 				{
 					Name: "User Accounts",
 					Route: "/user-account/user-list",

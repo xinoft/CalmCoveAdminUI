@@ -1,6 +1,11 @@
 .action-btns {
     margin-top: 1rem;
 }
+
 :host ::ng-deep .p-dropdown-panel .p-dropdown-items {
     padding-left: 1px;
+}
+
+:host ::ng-deep .p-element .p-dropdown-label {
+    font-size: 0.9375rem;
 }

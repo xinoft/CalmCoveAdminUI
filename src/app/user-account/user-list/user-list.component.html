@@ -38,7 +38,7 @@
 					<td>{{ userAccount.Email }}</td>
 					<td>
 						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"><i (click)="startUpdateUserProcess(userAccount.Id)" class="text-primary ti ti-pencil"></i></a>
-						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Permission" (click)="getUserMappingListForUpdating(userAccount.Id, userAccount.FirstName + ' ' + userAccount.LastName)"><i class="text-primary ti ti-key"></i></a>
+						<!-- <a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Permission" (click)="getUserMappingListForUpdating(userAccount.Id, userAccount.FirstName + ' ' + userAccount.LastName)"><i class="text-primary ti ti-key"></i></a> -->
 						<a class="btn btn-sm btn-icon item-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove" (click)="removeUserAccount(userAccount.Id)"><i class="ti ti-trash btn-text"></i></a>
 					</td>
 				</tr>

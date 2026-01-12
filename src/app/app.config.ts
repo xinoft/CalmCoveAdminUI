@@ -5,12 +5,14 @@ import { authenticationRoutes } from './authentication/authentication.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './authentication/services/token-interceptor.service';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([tokenInterceptor])),
-    provideAnimations()
+    provideAnimations(),
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ]
 };

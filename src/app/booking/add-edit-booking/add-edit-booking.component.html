@@ -88,10 +88,12 @@
                         </div>
                         <div class="col-12 col-md-4 fv-plugins-icon-container">
                             <label class="form-label" for="booking-status">Status</label>
-                            <select class="form-control" formControlName="status" id="booking-status">
-                                <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}
-                                </option>
-                            </select>
+                            <div class="dropdown-wrapper">
+                                <select class="form-control dropdown-select" formControlName="status" id="booking-status">
+                                    <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}
+                                    </option>
+                                </select>
+                            </div>
                             <app-form-error [control]="bookingForm.get('status')"></app-form-error>
                         </div>
                         <div class="col-12 fv-plugins-icon-container">
