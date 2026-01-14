@@ -21,6 +21,7 @@ export class AddEditBookingComponent implements OnInit {
     bookingForm: any;
     @Input() refreshBookingList: any;
     @Input() bookingId?: number;
+    isFormReadonly = false;
 
     usersList: UserAccount[] = [];
 
@@ -36,7 +37,29 @@ export class AddEditBookingComponent implements OnInit {
     }
 
     ngOnInit() {
+        // Subscribe to status changes to trigger change detection and disable form
+        this.bookingForm.get('status')?.valueChanges.subscribe((value: number) => {
+            this.updateFormReadonlyState(value);
+        });
+        // Set initial readonly state based on current status
+        this.updateFormReadonlyState(this.bookingForm.get('status')?.value);
+    }
 
+    updateFormReadonlyState(status: number) {
+        const isReadonly = status === 2 || status === 3;
+        this.isFormReadonly = isReadonly;
+        const controlsToToggle = ['finalSlotTime', 'assignee', 'status', 'notes'];
+        
+        controlsToToggle.forEach(controlName => {
+            const control = this.bookingForm.get(controlName);
+            if (control) {
+                if (isReadonly) {
+                    control.disable({ emitEvent: false });
+                } else {
+                    control.enable({ emitEvent: false });
+                }
+            }
+        });
     }
 
     setUsersList(users: UserAccount[]) {
@@ -54,11 +77,19 @@ export class AddEditBookingComponent implements OnInit {
             deliveryAmount: new FormControl({ value: booking.BookingTransaction?.DeliveryAmount || 0, disabled: true }),
             discountAmount: new FormControl({ value: booking.BookingTransaction?.PromotionDiscountAmount || 0, disabled: true }),
             totalAmount: new FormControl({ value: booking.BookingTransaction?.TotalAmount || 0, disabled: true }),
+            paidAmount: new FormControl({ value: booking.BookingTransaction?.PaidAmount || 0, disabled: true }),
+            walletAmount: new FormControl({ value: booking.BookingTransaction?.WalletAmount || 0, disabled: true }),
             initialSlotTime: new FormControl({ value: this.formatDateTime(booking.IntialSlotTime), disabled: true }),
             finalSlotTime: new FormControl(this.formatDateTime(booking.FinalSlotTime), Validators.required),
             assignee: new FormControl(booking.Assignee ? booking.Assignee.Id : null, Validators.required),
             status: new FormControl(booking.Status, Validators.required),
             notes: new FormControl({ value: booking.Notes || '', disabled: false })
+        });
+        // Update readonly state after form is initialized
+        this.updateFormReadonlyState(booking.Status);
+        // Subscribe to status changes for this form instance
+        this.bookingForm.get('status')?.valueChanges.subscribe((value: number) => {
+            this.updateFormReadonlyState(value);
         });
     }
 
@@ -121,5 +152,24 @@ export class AddEditBookingComponent implements OnInit {
 
     compareUsers(user1: UserAccount, user2: UserAccount): boolean {
         return user1 && user2 ? user1.Id === user2.Id : user1 === user2;
+    }
+
+    getFilteredStatusOptions() {
+        const currentStatus = this.bookingForm.get('status')?.value;
+        // Hide Pending option (value 0) when status is 1 (Confirmed)
+        if (currentStatus === 1) {
+            return this.statusOptions.filter(option => option.value !== 0);
+        }
+        // Hide Pending and Confirmed options (value 0 and 1) when status is 2 (Completed)
+        if (currentStatus === 2) {
+            return this.statusOptions.filter(option => option.value !== 0 && option.value !== 1);
+        }
+        return this.statusOptions;
+    }
+
+    isStatusReadonly(): boolean {
+        const currentStatus = this.bookingForm.get('status')?.value;
+        // Make status readonly when it's 2 (Completed) or 3 (Cancelled)
+        return currentStatus === 2 || currentStatus === 3;
     }
 }

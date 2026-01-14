@@ -48,25 +48,35 @@
 
                     <!-- Amount Details Section -->
                     <div class="row">
-                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                        <div class="col-12 col-md-2 fv-plugins-icon-container">
                             <label class="form-label" for="booking-bookingAmount">Booking Amount</label>
                             <input type="number" id="booking-bookingAmount" formControlName="bookingAmount"
                                 name="bookingAmount" class="form-control" />
                         </div>
-                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                        <div class="col-12 col-md-2 fv-plugins-icon-container">
                             <label class="form-label" for="booking-deliveryAmount">Delivery Amount</label>
                             <input type="number" id="booking-deliveryAmount" formControlName="deliveryAmount"
                                 name="deliveryAmount" class="form-control" />
                         </div>
-                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                        <div class="col-12 col-md-2 fv-plugins-icon-container">
                             <label class="form-label" for="booking-discountAmount">Discount Amount</label>
                             <input type="number" id="booking-discountAmount" formControlName="discountAmount"
                                 name="discountAmount" class="form-control" />
                         </div>
-                        <div class="col-12 col-md-3 fv-plugins-icon-container">
+                        <div class="col-12 col-md-2 fv-plugins-icon-container">
                             <label class="form-label" for="booking-totalAmount">Total Amount</label>
                             <input type="number" id="booking-totalAmount" formControlName="totalAmount"
                                 name="totalAmount" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-2 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-walletAmount">Wallet Amount</label>
+                            <input type="number" id="booking-walletAmount" formControlName="walletAmount"
+                                name="walletAmount" class="form-control" />
+                        </div>
+                        <div class="col-12 col-md-2 fv-plugins-icon-container">
+                            <label class="form-label" for="booking-paidAmount">Paid Amount</label>
+                            <input type="number" id="booking-paidAmount" formControlName="paidAmount"
+                                name="paidAmount" class="form-control" />
                         </div>
                     </div>
                     <hr>
@@ -89,8 +99,8 @@
                         <div class="col-12 col-md-4 fv-plugins-icon-container">
                             <label class="form-label" for="booking-status">Status</label>
                             <div class="dropdown-wrapper">
-                                <select class="form-control dropdown-select" formControlName="status" id="booking-status">
-                                    <option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}
+                                <select class="form-control dropdown-select" formControlName="status" id="booking-status" [attr.disabled]="isStatusReadonly() ? true : null">
+                                    <option *ngFor="let option of getFilteredStatusOptions()" [value]="option.value">{{ option.label }}
                                     </option>
                                 </select>
                             </div>
@@ -105,7 +115,7 @@
 
                     <div class="col-12 text-center action-btns">
                         <button type="submit"
-                            class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
+                            class="btn btn-primary me-sm-3 me-1 waves-effect waves-light" *ngIf="!isFormReadonly">Submit</button>
                         <button type="reset" class="btn btn-label-secondary waves-effect" data-bs-dismiss="modal"
                             aria-label="Close">Cancel</button>
                     </div>
