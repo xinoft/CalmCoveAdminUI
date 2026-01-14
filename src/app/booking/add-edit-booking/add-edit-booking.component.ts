@@ -83,7 +83,12 @@ export class AddEditBookingComponent implements OnInit {
             finalSlotTime: new FormControl(this.formatDateTime(booking.FinalSlotTime), Validators.required),
             assignee: new FormControl(booking.Assignee ? booking.Assignee.Id : null, Validators.required),
             status: new FormControl(booking.Status, Validators.required),
-            notes: new FormControl({ value: booking.Notes || '', disabled: false })
+            notes: new FormControl({ value: booking.Notes || '', disabled: false }),
+            address:new FormControl({ value: booking.BookingTransaction?.Address?.Name + ', ' 
+                + booking.BookingTransaction?.Address?.Line1 + ', ' 
+                + booking.BookingTransaction?.Address?.Line3 + ', ' 
+                + booking.BookingTransaction?.Address?.GooglePlace
+                 || '', disabled: true }),
         });
         // Update readonly state after form is initialized
         this.updateFormReadonlyState(booking.Status);

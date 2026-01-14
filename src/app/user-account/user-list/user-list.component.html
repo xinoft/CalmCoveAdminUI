@@ -25,9 +25,9 @@
 		<p-table [value]="userAccountList" [lazy]="true" (onSort)="onUserListSort($event)" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '60rem' }">
 			<ng-template pTemplate="header">
 				<tr>
-					<th pSortableColumn="Name">Name <p-sortIcon field="Name"></p-sortIcon></th>
-					<th pSortableColumn="Phone">Phone <p-sortIcon field="Phone"></p-sortIcon></th>
-					<th pSortableColumn="Email">Email <p-sortIcon field="Email"></p-sortIcon></th>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
 					<th>Actions</th>
 				</tr>
 			</ng-template>
