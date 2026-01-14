@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PromotionService } from '../promotion.service';
 import { UtilityService } from '../../shared/services/utility.service';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './promotion-add-edit.component.html',
   styleUrl: './promotion-add-edit.component.css'
 })
-export class PromotionAddEditComponent {
+export class PromotionAddEditComponent implements OnInit {
   @Input() promotionMode = '';
   @Input() refreshPromotionList: any;
 
@@ -22,6 +22,31 @@ export class PromotionAddEditComponent {
 
   constructor(private _promotionService: PromotionService, private _utilityService: UtilityService) {
     this.initPromotionFormGroup(new PromotionModel());
+  }
+
+  ngOnInit() {
+    // Setup subscription for initial form
+    this.setupCouponTypeListener();
+  }
+
+  setupCouponTypeListener() {
+    // Subscribe to couponType changes
+    this.promotionForm.get('couponType')?.valueChanges.subscribe((value: string | number) => {
+      this.handleCouponTypeChange(value);
+    });
+    // Set initial state based on current coupon type
+    this.handleCouponTypeChange(this.promotionForm.get('couponType')?.value);
+  }
+
+  handleCouponTypeChange(couponType: string | number) {
+    const couponControl = this.promotionForm.get('coupon');
+    // If coupon type is 1 (Simple), disable and set to "N/A"
+    if (couponType === 2 || couponType === '2') {
+      couponControl?.setValue('N/A', { emitEvent: false });
+      couponControl?.disable({ emitEvent: false });
+    } else {
+      couponControl?.enable({ emitEvent: false });
+    }
   }
 
   initPromotionFormGroup(promotion: PromotionModel) {
@@ -38,11 +63,33 @@ export class PromotionAddEditComponent {
       percentage: new FormControl(promotion.Percentage),
       minimumAmount: new FormControl(promotion.MinimumAmount),
     });
+    // Update coupon field state based on coupon type
+    this.handleCouponTypeChange(promotion.CouponType);
+    // Setup subscription for this form instance
+    this.setupCouponTypeListener();
   }
 
   savePromotion() {
     if (this.promotionForm.invalid) {
       this._utilityService.showToast(new ToastMessage(ToastType.Error, 'Please fill all required fields', 'Promotion'));
+      return;
+    }
+
+    // Get date values
+    const startingDate = new Date(this.promotionForm.get('startingDate')?.value);
+    const endingDate = new Date(this.promotionForm.get('endingDate')?.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Validate starting date is today or in the future
+    if (startingDate < today) {
+      this._utilityService.showToast(new ToastMessage(ToastType.Error, 'Starting date must be today or in the future', 'Promotion'));
+      return;
+    }
+
+    // Validate ending date is greater than starting date
+    if (endingDate <= startingDate) {
+      this._utilityService.showToast(new ToastMessage(ToastType.Error, 'Ending date must be greater than starting date', 'Promotion'));
       return;
     }
 

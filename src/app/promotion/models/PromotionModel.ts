@@ -1,12 +1,12 @@
 export class PromotionModel {
   Id: number = 0;
   Coupon: string = '';
-  CouponType: number = 0;
+  CouponType: number = 1;
   StartingDate: Date = new Date();
   EndingDate: Date = new Date();
   Count: number = 0;
   UsedCount: number = 0;
-  DiscountMode: number = 0;
+  DiscountMode: number = 1;
   Amount: number = 0;
   Percentage: number = 0;
   MinimumAmount: number = 0;
