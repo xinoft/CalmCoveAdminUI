@@ -18,12 +18,14 @@ export class PromotionItemListComponent {
 	promotionItemList: PromotionItemModel[] = [];
 	promotionType: number = 0;
 	promotionCoupon: string = '';
+	searchKeyword: string = '';
 
 	constructor(private _promotionService: PromotionService, private _utilityService: UtilityService) {}
 
-	getPromotionItemList(promotionId: number, promotionType: number = 0, promotionCoupon: string = '') {
+	getPromotionItemList(promotionId: number, promotionType: number = 0, promotionCoupon: string = '', searchKeyword: string = '') {
 		this.promotionType = promotionType;
 		this.promotionCoupon = promotionCoupon;
+		this.searchKeyword = searchKeyword;
 		this._utilityService.showLoader(true);
 		this._promotionService.getPromotionItemList(promotionId).subscribe((response: ApiResponse<PromotionItemModel[]>) => {
 			if (response.Success) {
@@ -38,6 +40,14 @@ export class PromotionItemListComponent {
 			}
 			this._utilityService.showLoader(false);
 		});
+	}
+
+	highlightKeyword(text: string): any {
+		if (!this.searchKeyword || !text) {
+			return text;
+		}
+		const regex = new RegExp(`(${this.searchKeyword})`, 'gi');
+		return text.replace(regex, '<mark>$1</mark>');
 	}
 
 	closeModal() {

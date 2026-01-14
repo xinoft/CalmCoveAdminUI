@@ -16,3 +16,9 @@
   color: #6c757d;
   font-weight: 500;
 }
+:host ::ng-deep mark {
+  background-color: #ffd700;
+  padding: 0.2rem 0.4rem;
+  border-radius: 2px;
+  font-weight: 600;
+}

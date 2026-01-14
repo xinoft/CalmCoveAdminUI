@@ -110,7 +110,7 @@ export class PromotionListComponent implements OnInit {
 	}
 
 	startViewPromotionItemProcess(id: number, promotionType: number, coupon: string) {
-		this.promotionItemListComponent?.getPromotionItemList(id, promotionType, coupon);
+		this.promotionItemListComponent?.getPromotionItemList(id, promotionType, coupon, this.coupon);
 	}
 
 	formatDate(date: Date): string {

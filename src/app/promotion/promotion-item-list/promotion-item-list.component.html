@@ -23,7 +23,7 @@
 							<td colspan="2"><span [ngClass]="item.AppliedDate ? 'status-used' : 'status-not-used'">{{ item.AppliedDate ? 'Applied on ' + (item.AppliedDate | date:'dd-MM-yyyy HH:mm:ss') : 'Not Applied' }}</span></td>
 						</tr>
 						<tr *ngIf="promotionType !== 1">
-							<td>{{ item.Coupon }}</td>
+							<td><span [innerHTML]="highlightKeyword(item.Coupon)"></span></td>
 							<td><span [ngClass]="item.AppliedDate  ? 'status-used' : 'status-not-used'">{{ item.AppliedDate ? 'Applied on ' + (item.AppliedDate | date:'dd-MM-yyyy HH:mm:ss') : 'Not Applied' }}</span></td>
 						</tr>
 					</ng-template>
