@@ -54,8 +54,8 @@
                 <tr>
                     <td>{{ promotion.Coupon == '' ? 'N/A' : promotion.Coupon }}</td>
                     <td>{{ promotion.CouponType == 1 ? 'Simple' : 'Auto Generated' }}</td>
-                    <td>{{ promotion.StartingDate | date:'dd-MM-yyyy' }}</td>
-                    <td>{{ promotion.EndingDate | date:'dd-MM-yyyy' }}</td>
+                    <td>{{ promotion.StartingDate | utcToLocal:'date' }}</td>
+                    <td>{{ promotion.EndingDate | utcToLocal:'date' }}</td>
                     <td>{{ promotion.Count }}</td>
                     <td>{{ promotion.UsedCount }}</td>
                     <td>{{ promotion.DiscountMode === 1 ? 'Flat ' + (promotion.Amount | price) : (promotion.Percentage +

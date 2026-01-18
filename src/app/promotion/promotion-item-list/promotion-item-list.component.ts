@@ -2,15 +2,17 @@ import { Component } from "@angular/core";
 import { TableModule } from "primeng/table";
 import { PromotionService } from "../promotion.service";
 import { UtilityService } from "../../shared/services/utility.service";
+import { TimezoneService } from "../../shared/services/timezone.service";
 import { ApiResponse } from "../../shared/models/ApiResponse";
 import { PromotionItemModel } from "../models/PromotionItemModel";
 import { ToastMessage, ToastType } from "../../shared/models/ToastMessage";
 import { CommonModule } from "@angular/common";
+import { UtcToLocalPipe } from "../../shared/pipes/utc-to-local.pipe";
 
 @Component({
 	selector: "app-promotion-item-list",
 	standalone: true,
-	imports: [TableModule, CommonModule],
+	imports: [TableModule, CommonModule, UtcToLocalPipe],
 	templateUrl: "./promotion-item-list.component.html",
 	styleUrl: "./promotion-item-list.component.css",
 })

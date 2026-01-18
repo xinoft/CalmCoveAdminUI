@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { TableModule } from "primeng/table";
 import { PromotionService } from "../promotion.service";
 import { UtilityService } from "../../shared/services/utility.service";
+import { TimezoneService } from "../../shared/services/timezone.service";
 import { ApiResponse } from "../../shared/models/ApiResponse";
 import { PromotionListRequest } from "../models/PromotionListRequest";
 import { ToastMessage, ToastType } from "../../shared/models/ToastMessage";
@@ -9,13 +10,14 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { PromotionModel } from "../models/PromotionModel";
 import { PricePipe } from "../../shared/pipes/price.pipe";
+import { UtcToLocalPipe } from "../../shared/pipes/utc-to-local.pipe";
 import { PromotionItemListComponent } from "../promotion-item-list/promotion-item-list.component";
 import { PromotionAddEditComponent } from "../promotion-add-edit/promotion-add-edit.component";
 
 @Component({
 	selector: "app-promotion-list",
 	standalone: true,
-	imports: [TableModule, FormsModule, CommonModule, PricePipe, PromotionItemListComponent, PromotionAddEditComponent],
+	imports: [TableModule, FormsModule, CommonModule, PricePipe, UtcToLocalPipe, PromotionItemListComponent, PromotionAddEditComponent],
 	templateUrl: "./promotion-list.component.html",
 	styleUrl: "./promotion-list.component.css",
 })

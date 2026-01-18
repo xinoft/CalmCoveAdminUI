@@ -5,6 +5,7 @@ import { FormErrorComponent } from '../../shared/components/form-error/form-erro
 import { BookingService } from '../booking.service';
 import { ToastMessage, ToastType } from '../../shared/models/ToastMessage';
 import { UtilityService } from '../../shared/services/utility.service';
+import { TimezoneService } from '../../shared/services/timezone.service';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { UserAccount } from '../../user-account/models/UserAccount';
@@ -32,7 +33,7 @@ export class AddEditBookingComponent implements OnInit {
         { value: 3, label: 'Cancelled' }
     ];
 
-    constructor(private _bookingService: BookingService, private _utilityService: UtilityService) {
+    constructor(private _bookingService: BookingService, private _utilityService: UtilityService, private _timezoneService: TimezoneService) {
         this.initBookingFormGroup(new BookingModel());
     }
 
@@ -109,22 +110,30 @@ export class AddEditBookingComponent implements OnInit {
 
     formatDateTime(dateTimeString: string): string {
         if (!dateTimeString) return '';
-        const date = new Date(dateTimeString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
+        try {
+            // Convert UTC time from API to local timezone
+            const localDate = this._timezoneService.utcToLocal(dateTimeString);
+            const year = localDate.getFullYear();
+            const month = String(localDate.getMonth() + 1).padStart(2, '0');
+            const day = String(localDate.getDate()).padStart(2, '0');
+            const hours = String(localDate.getHours()).padStart(2, '0');
+            const minutes = String(localDate.getMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        } catch (error) {
+            console.error('Error formatting date:', error);
+            return '';
+        }
     }
 
     onSubmitBookingForm() {
         if (this.bookingForm.valid) {
             debugger
             const assigneeUser = this.bookingForm.get('assignee')?.value;
+            const finalSlotTimeLocal = this.bookingForm.get('finalSlotTime')?.value;
+
             const bookingData = {
                 bookingId: this.bookingForm.get('bookingId')?.value,
-                finalSlotTime: this.bookingForm.get('finalSlotTime')?.value,
+                finalSlotTime: this._timezoneService.convertLocalInputToUtc(finalSlotTimeLocal),
                 assignee: assigneeUser ? assigneeUser : 0,
                 status: this.bookingForm.get('status')?.value,
                 notes: this.bookingForm.get('notes')?.value || ''

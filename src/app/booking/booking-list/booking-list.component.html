@@ -65,8 +65,8 @@
                             {{ booking.Massage.Name }}
                         </span>
                     </td>
-                    <td>{{ booking.IntialSlotTime | date: 'short' }}</td>
-                    <td>{{ booking.CreatedTime | date: 'short' }}</td>
+                    <td>{{ booking.IntialSlotTime | utcToLocal: 'short' }}</td>
+                    <td>{{ booking.CreatedTime | utcToLocal: 'short' }}</td>
                     <td>
                         <span *ngIf="booking.BookingTransaction">
                             {{ booking.BookingTransaction.TotalAmount | price }}

@@ -6,6 +6,7 @@ import { ApiResponse } from '../../shared/models/ApiResponse';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
 import { PricePipe } from '../../shared/pipes/price.pipe';
+import { UtcToLocalPipe } from '../../shared/pipes/utc-to-local.pipe';
 import { CommonModule } from '@angular/common';
 import { ToastMessage, ToastType } from '../../shared/models/ToastMessage';
 import { AddEditBookingComponent } from '../add-edit-booking/add-edit-booking.component';
@@ -15,7 +16,7 @@ import { UserAccount } from '../../user-account/models/UserAccount';
 @Component({
   selector: 'app-booking-list',
   standalone: true,
-  imports: [TableModule, FormsModule, PricePipe, CommonModule, AddEditBookingComponent],
+  imports: [TableModule, FormsModule, PricePipe, UtcToLocalPipe, CommonModule, AddEditBookingComponent],
   templateUrl: './booking-list.component.html',
   styleUrl: './booking-list.component.css'
 })
