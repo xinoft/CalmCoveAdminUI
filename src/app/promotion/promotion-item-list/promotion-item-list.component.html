@@ -8,6 +8,22 @@
 					<p class="text-muted">Items included in this promotion</p>
                     <p *ngIf="promotionType === 1"><b>Coupon: {{ promotionCoupon == null || promotionCoupon == '' ? 'No Coupon' : promotionCoupon }}</b></p>
 				</div>
+				<div class="mt-4 p-2 border rounded">
+					<div class="row text-center">
+						<div class="col-md-4">
+							<p class="text-muted mb-1">Total Count</p>
+							<h5 class="mb-0">{{ promotionItemList?.length || 0 }}</h5>
+						</div>
+						<div class="col-md-4">
+							<p class="text-muted mb-1">Used Count</p>
+							<h5 class="mb-0 text-success">{{ getUsedCount() }}</h5>
+						</div>
+						<div class="col-md-4">
+							<p class="text-muted mb-1">Balance Count</p>
+							<h5 class="mb-0 text-warning">{{ getBalanceCount() }}</h5>
+						</div>
+					</div>
+				</div>
 				<p-table [value]="promotionItemList" styleClass="p-datatable-striped">
 					<ng-template pTemplate="header">
 						<tr *ngIf="promotionType === 1">
@@ -32,22 +48,6 @@
 						</tr>
 					</ng-template>
 				</p-table>
-				<div class="mt-4 p-3 border rounded">
-					<div class="row text-center">
-						<div class="col-md-4">
-							<p class="text-muted mb-1">Total Count</p>
-							<h5 class="mb-0">{{ promotionItemList?.length || 0 }}</h5>
-						</div>
-						<div class="col-md-4">
-							<p class="text-muted mb-1">Used Count</p>
-							<h5 class="mb-0 text-success">{{ (promotionItemList | filterByApplied)?.length || 0 }}</h5>
-						</div>
-						<div class="col-md-4">
-							<p class="text-muted mb-1">Balance Count</p>
-							<h5 class="mb-0 text-warning">{{ ((promotionItemList?.length || 0) - ((promotionItemList | filterByApplied)?.length || 0)) }}</h5>
-						</div>
-					</div>
-				</div>
 				<div class="col-12 text-center mt-4">
 					<button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">Close</button>
 				</div>

@@ -8,12 +8,11 @@ import { PromotionItemModel } from "../models/PromotionItemModel";
 import { ToastMessage, ToastType } from "../../shared/models/ToastMessage";
 import { CommonModule } from "@angular/common";
 import { UtcToLocalPipe } from "../../shared/pipes/utc-to-local.pipe";
-import { FilterByAppliedPipe } from "../pipes/filter-by-applied.pipe";
 
 @Component({
 	selector: "app-promotion-item-list",
 	standalone: true,
-	imports: [TableModule, CommonModule, UtcToLocalPipe, FilterByAppliedPipe],
+	imports: [TableModule, CommonModule, UtcToLocalPipe],
 	templateUrl: "./promotion-item-list.component.html",
 	styleUrl: "./promotion-item-list.component.css",
 })
@@ -24,6 +23,14 @@ export class PromotionItemListComponent {
 	searchKeyword: string = '';
 
 	constructor(private _promotionService: PromotionService, private _utilityService: UtilityService) {}
+
+	getUsedCount(): number {
+		return this.promotionItemList?.filter(item => item.AppliedDate && item.AppliedDate !== null).length || 0;
+	}
+
+	getBalanceCount(): number {
+		return (this.promotionItemList?.length || 0) - this.getUsedCount();
+	}
 
 	getPromotionItemList(promotionId: number, promotionType: number = 0, promotionCoupon: string = '', searchKeyword: string = '') {
 		this.promotionType = promotionType;
