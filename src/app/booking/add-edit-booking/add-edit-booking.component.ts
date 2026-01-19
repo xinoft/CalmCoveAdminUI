@@ -111,7 +111,6 @@ export class AddEditBookingComponent implements OnInit {
     formatDateTime(dateTimeString: string): string {
         if (!dateTimeString) return '';
         try {
-            // Convert UTC time from API to local timezone
             const localDate = this._timezoneService.utcToLocal(dateTimeString);
             const year = localDate.getFullYear();
             const month = String(localDate.getMonth() + 1).padStart(2, '0');

@@ -133,24 +133,8 @@ export class TimezoneService {
    * @param localDateTimeString - ISO string from datetime-local input (e.g., "2024-01-18T14:30")
    * @returns UTC ISO string for API submission
    */
-  convertLocalInputToUtc(localDateTimeString: string): string {
-    if (!localDateTimeString) {
-      throw new Error('Date string cannot be empty');
-    }
-    // Parse the datetime-local input value
-    const localDate = new Date(localDateTimeString);
-    
-    if (isNaN(localDate.getTime())) {
-      throw new Error('Invalid date string provided');
-    }
-
-    // Get the timezone offset in milliseconds
-    const tzOffset = localDate.getTimezoneOffset() * 60 * 1000;
-    
-    // Convert to UTC by adding the offset (offset is negative for ahead of UTC)
-    const utcDate = new Date(localDate.getTime() + tzOffset);
-    
-    // Return as ISO string
+  convertLocalInputToUtc(localDateTimeString: string): any {
+    const utcDate = new Date(localDateTimeString);
     return utcDate.toISOString();
   }
 }

@@ -45,7 +45,7 @@
                     <th>Booking ID</th>
                     <th>Customer</th>
                     <th>Massage</th>
-                    <th>Slot Time</th>
+                    <th>Final Slot</th>
                     <th>Order Time</th>
                     <th>Total Amount</th>
                     <th>Status</th>
@@ -65,7 +65,7 @@
                             {{ booking.Massage.Name }}
                         </span>
                     </td>
-                    <td>{{ booking.IntialSlotTime | utcToLocal: 'short' }}</td>
+                    <td>{{ booking.FinalSlotTime | utcToLocal: 'short' }}</td>
                     <td>{{ booking.CreatedTime | utcToLocal: 'short' }}</td>
                     <td>
                         <span *ngIf="booking.BookingTransaction">
