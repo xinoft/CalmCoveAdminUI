@@ -8,11 +8,12 @@ import { PromotionItemModel } from "../models/PromotionItemModel";
 import { ToastMessage, ToastType } from "../../shared/models/ToastMessage";
 import { CommonModule } from "@angular/common";
 import { UtcToLocalPipe } from "../../shared/pipes/utc-to-local.pipe";
+import { FilterByAppliedPipe } from "../pipes/filter-by-applied.pipe";
 
 @Component({
 	selector: "app-promotion-item-list",
 	standalone: true,
-	imports: [TableModule, CommonModule, UtcToLocalPipe],
+	imports: [TableModule, CommonModule, UtcToLocalPipe, FilterByAppliedPipe],
 	templateUrl: "./promotion-item-list.component.html",
 	styleUrl: "./promotion-item-list.component.css",
 })

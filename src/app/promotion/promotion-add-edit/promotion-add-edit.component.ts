@@ -19,6 +19,7 @@ export class PromotionAddEditComponent implements OnInit {
   @Input() refreshPromotionList: any;
 
   promotionForm: any;
+  isCouponReadonly = false;
 
   constructor(private _promotionService: PromotionService, private _utilityService: UtilityService) {
     this.initPromotionFormGroup(new PromotionModel());
@@ -40,12 +41,13 @@ export class PromotionAddEditComponent implements OnInit {
 
   handleCouponTypeChange(couponType: string | number) {
     const couponControl = this.promotionForm.get('coupon');
-    // If coupon type is 1 (Simple), disable and set to "N/A"
+    // If coupon type is 2, set to "N/A" and make readonly (keep control enabled for API submission)
     if (couponType === 2 || couponType === '2') {
       couponControl?.setValue('N/A', { emitEvent: false });
-      couponControl?.disable({ emitEvent: false });
+      this.isCouponReadonly = true;
     } else {
-      couponControl?.enable({ emitEvent: false });
+      couponControl?.setValue('', { emitEvent: false });
+      this.isCouponReadonly = false;
     }
   }
 
@@ -92,7 +94,7 @@ export class PromotionAddEditComponent implements OnInit {
       this._utilityService.showToast(new ToastMessage(ToastType.Error, 'Ending date must be greater than starting date', 'Promotion'));
       return;
     }
-
+    debugger
     this._utilityService.showLoader(true);
     const formData = this.promotionForm.value;
 
