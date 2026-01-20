@@ -1,6 +1,6 @@
-<div class="dashboard-container">
-	<h4 class="py-3 mb-4">Dashboard</h4>
-	
+<div>
+	<h4 class="py-1 mb-4">Dashboard</h4>
+
 	<!-- Loading State handled by global loader -->
 
 	<!-- Error State -->
@@ -10,15 +10,6 @@
 
 	<!-- Dashboard Content -->
 	<div *ngIf="!isLoading && dashboardData && dashboardData.Success" class="dashboard-content">
-		<!-- Chart Container -->
-		<div class="card">
-			<div class="card-body">
-				<div class="chart-wrapper">
-					<canvas id="dashboardChart" width="800" height="200"></canvas>
-				</div>
-			</div>
-		</div>
-
 		<!-- Summary Cards -->
 		<div class="row mt-4" *ngIf="monthlyData">
 			<div class="col-md-6 col-lg-3">
@@ -55,6 +46,16 @@
 						<p class="card-value">{{monthlyData['Jan'].CanceledBookings}}</p>
 						<small class="text-muted">January</small>
 					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Chart Container -->
+		<div class="card  mt-4">
+			<div class="card-body">
+				<!-- <div class="chart-wrapper"> -->
+				<div>
+					<canvas id="dashboardChart" width="800" height="170"></canvas>
 				</div>
 			</div>
 		</div>

@@ -25,7 +25,7 @@ export class PromotionItemListComponent {
 	constructor(private _promotionService: PromotionService, private _utilityService: UtilityService) {}
 
 	getUsedCount(): number {
-		return this.promotionItemList?.filter(item => item.AppliedDate && item.AppliedDate !== null).length || 0;
+		return this.promotionItemList.filter(item => item.AppliedDate && item.AppliedDate !== null).length || 0;
 	}
 
 	getBalanceCount(): number {
