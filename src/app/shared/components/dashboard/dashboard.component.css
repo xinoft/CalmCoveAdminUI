@@ -152,6 +152,103 @@
   font-size: 24px;
 }
 
+/* Revenue Cards */
+.revenue-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.revenue-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.revenue-card .card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.revenue-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.revenue-chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 280px;
+  position: relative;
+  flex: 0 0 280px;
+  min-width: 280px;
+}
+
+.revenue-summary {
+  border-left: 1px solid #e0e0e0;
+  padding-left: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 0;
+}
+
+.revenue-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+  gap: 10px;
+}
+
+.revenue-label {
+  color: #666;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.revenue-label i {
+  font-size: 8px;
+  flex-shrink: 0;
+}
+
+.revenue-amount {
+  color: #333;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.revenue-total {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 8px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.revenue-total .revenue-label {
+  color: #333;
+  font-size: 13px;
+}
+
+.revenue-total .revenue-amount {
+  font-size: 13px;
+  color: #4CAF50;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-container {
@@ -177,5 +274,35 @@
 
   .icon-lg {
     font-size: 20px;
+  }
+
+  .revenue-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .revenue-chart-wrapper {
+    height: 220px;
+    flex: 0 0 100%;
+    min-width: unset;
+  }
+
+  .revenue-summary {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding-left: 0;
+    padding-top: 12px;
+  }
+
+  .revenue-item {
+    font-size: 11px;
+  }
+
+  .revenue-total .revenue-label {
+    font-size: 11px;
+  }
+
+  .revenue-total .revenue-amount {
+    font-size: 11px;
   }
 }

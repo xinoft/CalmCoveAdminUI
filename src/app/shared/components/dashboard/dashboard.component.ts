@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UtilityService } from '../../services/utility.service';
 import { DashboardService } from '../../services/dashboard.service';
-import { DashboardApiResponse, MonthlyData } from '../../models/dashboard.model';
+import { DashboardApiResponse, MonthlyData, RevenueData } from '../../models/dashboard.model';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -20,11 +20,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   monthlyData: MonthlyData | null = null;
   isLoading: boolean = true;
   chart: Chart | null = null;
+  revenueChartMonth: Chart | null = null;
+  revenueChartYear: Chart | null = null;
   dataLoaded: boolean = false;
   currentMonth: string = '';
   mostCustomerName: string = '';
   mostMassageName: string = '';
   mostAssignedTherapist: string = '';
+  currentMonthRevenue: RevenueData | null = null;
+  yearlyRevenue: RevenueData | null = null;
 
   constructor(
     private _utilityService: UtilityService,
@@ -52,11 +56,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.mostCustomerName = response.Result.MostCustomerName;
         this.mostMassageName = response.Result.MostMassageName;
         this.mostAssignedTherapist = response.Result.MostAssignedTherapist;
+        this.currentMonthRevenue = response.Result.CurrentMonthRevenue;
+        this.yearlyRevenue = response.Result.YearlyRevenue;
         this.isLoading = false;
         this.dataLoaded = true;
         this._utilityService.showLoader(false);
         // Initialize chart after DOM is ready
-        setTimeout(() => this.initializeChart(), 100);
+        setTimeout(() => {
+          this.initializeChart();
+          this.initializeRevenueCharts();
+        }, 100);
       },
       error: (error: any) => {
         console.error('Error loading dashboard data:', error);
@@ -174,6 +183,86 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     } catch (error) {
       console.error('Error initializing chart:', error);
     }
+  }
+
+  initializeRevenueCharts(): void {
+    this.initializeRevenueChart('revenueChartMonth', this.currentMonthRevenue);
+    this.initializeRevenueChart('revenueChartYear', this.yearlyRevenue);
+  }
+
+  initializeRevenueChart(chartId: string, revenueData: RevenueData | null): void {
+    if (!revenueData) return;
+
+    const ctx = document.getElementById(chartId) as HTMLCanvasElement;
+    if (!ctx) return;
+
+    try {
+      // Destroy existing chart if it exists
+      const existingChart = Chart.getChart(ctx);
+      if (existingChart) {
+        existingChart.destroy();
+      }
+
+      const chartInstance = chartId === 'revenueChartMonth' ? this.revenueChartMonth : this.revenueChartYear;
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      const config: ChartConfiguration<'doughnut'> = {
+        type: 'doughnut',
+        data: {
+          labels: ['Paid Amount', 'Delivery Amount', 'Discount Amount', 'Wallet Used'],
+          datasets: [
+            {
+              data: [
+                revenueData.PaidAmount,
+                revenueData.DeliveryAmount,
+                revenueData.DiscountAmount,
+                revenueData.WalletAmountUsed
+              ],
+              backgroundColor: [
+                '#4CAF50',
+                '#2196F3',
+                '#FF9800',
+                '#9C27B0'
+              ],
+              borderColor: '#fff',
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                font: {
+                  size: 12
+                },
+                padding: 15
+              }
+            }
+          }
+        }
+      };
+
+      const newChart = new Chart(ctx, config);
+      if (chartId === 'revenueChartMonth') {
+        this.revenueChartMonth = newChart;
+      } else {
+        this.revenueChartYear = newChart;
+      }
+      console.log(`${chartId} initialized successfully`);
+    } catch (error) {
+      console.error(`Error initializing ${chartId}:`, error);
+    }
+  }
+
+  getRevenueTotal(revenue: RevenueData | null): number {
+    if (!revenue) return 0;
+    return revenue.PaidAmount + revenue.DeliveryAmount + revenue.DiscountAmount + revenue.WalletAmountUsed;
   }
 
   getCurrentMonthName(): string {

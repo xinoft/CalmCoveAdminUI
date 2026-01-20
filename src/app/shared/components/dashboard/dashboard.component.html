@@ -108,5 +108,90 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Revenue Section -->
+		<div class="row mt-4">
+			<div class="col-md-6">
+				<div class="card revenue-card">
+					<div class="card-body">
+						<h6 class="card-title mb-3">Current Month Revenue</h6>
+						<div class="revenue-container">
+							<div class="revenue-chart-wrapper">
+							<canvas id="revenueChartMonth" width="280" height="280"></canvas>
+							</div>
+							<div class="revenue-summary">
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #2196F3;"></i> Delivery
+									</span>
+									<span class="revenue-amount">{{ currentMonthRevenue?.DeliveryAmount | currency }}</span>
+								</div>
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #FF9800;"></i> Discount
+									</span>
+									<span class="revenue-amount">-{{ currentMonthRevenue?.DiscountAmount | currency }}</span>
+								</div>
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #9C27B0;"></i> Wallet
+									</span>
+									<span class="revenue-amount">{{ currentMonthRevenue?.WalletAmountUsed | currency }}</span>
+								</div>
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #4CAF50;"></i> Credited
+									</span>
+									<span class="revenue-amount">{{ currentMonthRevenue?.PaidAmount | currency }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="card revenue-card">
+					<div class="card-body">
+						<h6 class="card-title mb-3">Yearly Revenue</h6>
+						<div class="revenue-container">
+							<div class="revenue-chart-wrapper">
+							<canvas id="revenueChartYear" width="280" height="280"></canvas>
+							</div>
+							<div class="revenue-summary">
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #2196F3;"></i> Delivery
+									</span>
+									<span class="revenue-amount">{{ yearlyRevenue?.DeliveryAmount | currency }}</span>
+								</div>
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #FF9800;"></i> Discount
+									</span>
+									<span class="revenue-amount">-{{ yearlyRevenue?.DiscountAmount | currency }}</span>
+								</div>
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #9C27B0;"></i> Wallet
+									</span>
+									<span class="revenue-amount">{{ yearlyRevenue?.WalletAmountUsed | currency }}</span>
+								</div>
+								<div class="revenue-item">
+									<span class="revenue-label">
+										<i class="ti ti-circle-filled" style="color: #4CAF50;"></i> Credited
+									</span>
+									<span class="revenue-amount">{{ yearlyRevenue?.PaidAmount | currency }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div>
+
+		</div>
 	</div>
 </div>

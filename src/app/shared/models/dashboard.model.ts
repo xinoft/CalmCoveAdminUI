@@ -5,6 +5,13 @@ export interface MonthlyBookingData {
   CanceledBookings: number;
 }
 
+export interface RevenueData {
+  PaidAmount: number;
+  DeliveryAmount: number;
+  DiscountAmount: number;
+  WalletAmountUsed: number;
+}
+
 export interface MonthlyData {
   [month: string]: MonthlyBookingData;
 }
@@ -14,6 +21,8 @@ export interface DashboardDataResult {
   MostCustomerName: string;
   MostMassageName: string;
   MostAssignedTherapist: string;
+  CurrentMonthRevenue: RevenueData;
+  YearlyRevenue: RevenueData;
 }
 
 export interface DashboardApiResponse {
