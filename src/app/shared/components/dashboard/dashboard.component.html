@@ -1,4 +1,62 @@
-<div>
+<div class="dashboard-container">
 	<h4 class="py-3 mb-4">Dashboard</h4>
-	<p>Sample page.<br />For more layout options use <a href="" target="_blank" class="fw-medium">HTML starter template generator</a> and refer <a href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation//layouts.html" target="_blank" class="fw-medium">Layout docs</a>.</p>
+	
+	<!-- Loading State handled by global loader -->
+
+	<!-- Error State -->
+	<div *ngIf="!isLoading && (!dashboardData || !dashboardData.Success)" class="alert alert-danger">
+		<p>Failed to load dashboard data. Please try again later.</p>
+	</div>
+
+	<!-- Dashboard Content -->
+	<div *ngIf="!isLoading && dashboardData && dashboardData.Success" class="dashboard-content">
+		<!-- Chart Container -->
+		<div class="card">
+			<div class="card-body">
+				<div class="chart-wrapper">
+					<canvas id="dashboardChart" width="800" height="200"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<!-- Summary Cards -->
+		<div class="row mt-4" *ngIf="monthlyData">
+			<div class="col-md-6 col-lg-3">
+				<div class="card summary-card pending">
+					<div class="card-body">
+						<h6 class="card-title">Pending Bookings</h6>
+						<p class="card-value">{{monthlyData['Jan'].PendingBookings}}</p>
+						<small class="text-muted">January</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="card summary-card confirmed">
+					<div class="card-body">
+						<h6 class="card-title">Confirmed Bookings</h6>
+						<p class="card-value">{{monthlyData['Jan'].ConfirmedBookings}}</p>
+						<small class="text-muted">January</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="card summary-card completed">
+					<div class="card-body">
+						<h6 class="card-title">Completed Bookings</h6>
+						<p class="card-value">{{monthlyData['Jan'].CompletedBookings}}</p>
+						<small class="text-muted">January</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-3">
+				<div class="card summary-card canceled">
+					<div class="card-body">
+						<h6 class="card-title">Canceled Bookings</h6>
+						<p class="card-value">{{monthlyData['Jan'].CanceledBookings}}</p>
+						<small class="text-muted">January</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
