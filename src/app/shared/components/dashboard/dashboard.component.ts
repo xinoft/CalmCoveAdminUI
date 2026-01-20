@@ -21,11 +21,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   isLoading: boolean = true;
   chart: Chart | null = null;
   dataLoaded: boolean = false;
+  currentMonth: string = '';
+  mostCustomerName: string = '';
+  mostMassageName: string = '';
+  mostAssignedTherapist: string = '';
 
   constructor(
     private _utilityService: UtilityService,
     private _dashboardService: DashboardService
-  ) { }
+  ) {
+    this.currentMonth = this.getCurrentMonthName();
+  }
 
   ngOnInit(): void {
     this.loadDashboardData();
@@ -43,6 +49,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       next: (response: DashboardApiResponse) => {
         this.dashboardData = response;
         this.monthlyData = response.Result.MonthlyData;
+        this.mostCustomerName = response.Result.MostCustomerName;
+        this.mostMassageName = response.Result.MostMassageName;
+        this.mostAssignedTherapist = response.Result.MostAssignedTherapist;
         this.isLoading = false;
         this.dataLoaded = true;
         this._utilityService.showLoader(false);
@@ -167,4 +176,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getCurrentMonthName(): string {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const currentDate = new Date();
+    return months[currentDate.getMonth()];
+  }
 }

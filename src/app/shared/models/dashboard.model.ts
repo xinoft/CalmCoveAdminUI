@@ -11,6 +11,9 @@ export interface MonthlyData {
 
 export interface DashboardDataResult {
   MonthlyData: MonthlyData;
+  MostCustomerName: string;
+  MostMassageName: string;
+  MostAssignedTherapist: string;
 }
 
 export interface DashboardApiResponse {

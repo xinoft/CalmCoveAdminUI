@@ -98,6 +98,60 @@
   margin: 0;
 }
 
+/* Top Booking Cards */
+.top-booking-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.top-booking-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.top-booking-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.top-booking-card .card-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: #f0f2f5;
+  border-radius: 8px;
+  color: #667eea;
+}
+
+.icon-lg {
+  font-size: 24px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-container {
@@ -110,5 +164,18 @@
 
   .summary-card .card-value {
     font-size: 24px;
+  }
+
+  .top-booking-card .card-value {
+    font-size: 16px;
+  }
+
+  .icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon-lg {
+    font-size: 20px;
   }
 }

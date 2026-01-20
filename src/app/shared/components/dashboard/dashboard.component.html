@@ -11,13 +11,13 @@
 	<!-- Dashboard Content -->
 	<div *ngIf="!isLoading && dashboardData && dashboardData.Success" class="dashboard-content">
 		<!-- Summary Cards -->
-		<div class="row mt-4" *ngIf="monthlyData">
+		<div class="row mt-4" *ngIf="monthlyData && monthlyData[currentMonth]">
 			<div class="col-md-6 col-lg-3">
 				<div class="card summary-card pending">
 					<div class="card-body">
 						<h6 class="card-title">Pending Bookings</h6>
-						<p class="card-value">{{monthlyData['Jan'].PendingBookings}}</p>
-						<small class="text-muted">January</small>
+						<p class="card-value">{{monthlyData[currentMonth].PendingBookings}}</p>
+						<small class="text-muted">{{currentMonth}}</small>
 					</div>
 				</div>
 			</div>
@@ -25,8 +25,8 @@
 				<div class="card summary-card confirmed">
 					<div class="card-body">
 						<h6 class="card-title">Confirmed Bookings</h6>
-						<p class="card-value">{{monthlyData['Jan'].ConfirmedBookings}}</p>
-						<small class="text-muted">January</small>
+						<p class="card-value">{{monthlyData[currentMonth].ConfirmedBookings}}</p>
+						<small class="text-muted">{{currentMonth}}</small>
 					</div>
 				</div>
 			</div>
@@ -34,8 +34,8 @@
 				<div class="card summary-card completed">
 					<div class="card-body">
 						<h6 class="card-title">Completed Bookings</h6>
-						<p class="card-value">{{monthlyData['Jan'].CompletedBookings}}</p>
-						<small class="text-muted">January</small>
+						<p class="card-value">{{monthlyData[currentMonth].CompletedBookings}}</p>
+						<small class="text-muted">{{currentMonth}}</small>
 					</div>
 				</div>
 			</div>
@@ -43,8 +43,8 @@
 				<div class="card summary-card canceled">
 					<div class="card-body">
 						<h6 class="card-title">Canceled Bookings</h6>
-						<p class="card-value">{{monthlyData['Jan'].CanceledBookings}}</p>
-						<small class="text-muted">January</small>
+						<p class="card-value">{{monthlyData[currentMonth].CanceledBookings}}</p>
+						<small class="text-muted">{{currentMonth}}</small>
 					</div>
 				</div>
 			</div>
@@ -56,6 +56,55 @@
 				<!-- <div class="chart-wrapper"> -->
 				<div>
 					<canvas id="dashboardChart" width="800" height="170"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<!-- Top Bookings Section -->
+		<div class="row mt-4">
+			<div class="col-md-6 col-lg-4">
+				<div class="card top-booking-card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<p class="card-label text-muted mb-2">Most Booked Customer</p>
+								<h5 class="card-value mb-0">{{ mostCustomerName || 'N/A' }}</h5>
+							</div>
+							<div class="icon-wrapper">
+								<i class="ti ti-user icon-lg"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="card top-booking-card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<p class="card-label text-muted mb-2">Most Booked Massage</p>
+								<h5 class="card-value mb-0">{{ mostMassageName || 'N/A' }}</h5>
+							</div>
+							<div class="icon-wrapper">
+								<i class="ti ti-massage icon-lg"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<div class="card top-booking-card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<p class="card-label text-muted mb-2">Most Booked Therapist</p>
+								<h5 class="card-value mb-0">{{ mostAssignedTherapist || 'N/A' }}</h5>
+							</div>
+							<div class="icon-wrapper">
+								<i class="ti ti-user icon-lg"></i>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
