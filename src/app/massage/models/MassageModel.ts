@@ -1,6 +1,6 @@
 export class MassageModel {
     Id: number;
-    Type:number = 0
+    Type:number = 1
     Name: string = "";
     Purpose?: string
     Description: string = "";

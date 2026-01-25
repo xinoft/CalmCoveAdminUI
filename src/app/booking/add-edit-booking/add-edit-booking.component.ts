@@ -81,6 +81,8 @@ export class AddEditBookingComponent implements OnInit {
             paidAmount: new FormControl({ value: booking.BookingTransaction?.PaidAmount || 0, disabled: true }),
             walletAmount: new FormControl({ value: booking.BookingTransaction?.WalletAmount || 0, disabled: true }),
             initialSlotTime: new FormControl({ value: this.formatDateTime(booking.IntialSlotTime), disabled: true }),
+            transactionId: new FormControl({ value: booking.BookingTransaction?.TransactionId || '', disabled: true }),
+            transactionDate: new FormControl({ value: this.formatDateTime(booking.BookingTransaction?.CreatedTime) || '', disabled: true }),
             finalSlotTime: new FormControl(this.formatDateTime(booking.FinalSlotTime), Validators.required),
             assignee: new FormControl(booking.Assignee ? booking.Assignee.Id : null, Validators.required),
             status: new FormControl(booking.Status, Validators.required),
