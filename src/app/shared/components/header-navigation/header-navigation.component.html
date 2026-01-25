@@ -56,9 +56,9 @@
 						<div class="dropdown-divider"></div>
 					</li>
 					<li>
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" (click)="openChangePasswordModal()" style="cursor: pointer;">
 							<i class="ti ti-settings me-2 ti-sm"></i>
-							<span class="align-middle">Settings</span>
+							<span class="align-middle">Change Password</span>
 						</a>
 					</li>
 					<li>
@@ -76,3 +76,36 @@
 		</ul>
 	</div>
 </nav>
+
+<!-- Change Password Modal -->
+<p-dialog [(visible)]="showChangePasswordModal" [header]="'Change Password'" [modal]="true" [style]="{width: '35vw'}" 
+	(onHide)="closeChangePasswordModal()" appendTo="body">
+	<div class="change-password-form">
+		<!-- Error Messages -->
+		<div class="alert alert-danger" *ngIf="passwordErrors.length > 0">
+			<ul class="mb-0">
+				<li *ngFor="let error of passwordErrors">{{ error }}</li>
+			</ul>
+		</div>
+
+		<!-- New Password -->
+		<div class="mb-3">
+			<label class="form-label">New Password</label>
+			<input type="password" class="form-control" [(ngModel)]="newPassword" placeholder="Enter new password" />
+		</div>
+
+		<!-- Confirm Password -->
+		<div class="mb-3">
+			<label class="form-label">Confirm Password</label>
+			<input type="password" class="form-control" [(ngModel)]="confirmPassword" placeholder="Confirm new password" />
+		</div>
+
+		<!-- Action Buttons -->
+		<div class="modal-actions" style="display: flex; gap: 10px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;float:right">
+			<button type="button" class="btn btn-secondary" (click)="closeChangePasswordModal()">Cancel</button>
+			<button type="button" class="btn btn-primary" (click)="changePassword()">
+				<i class="ti ti-check me-2"></i> Change Password
+			</button>
+		</div>
+	</div>
+</p-dialog>

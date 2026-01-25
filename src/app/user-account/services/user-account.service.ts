@@ -50,4 +50,10 @@ export class UserAccountService {
 	updateUser(data: any): Observable<any> {
         return this._http.post(`${environment.baseUrl}UserAccount/UpdateUserAccount`, data);
     }
+
+	changePassword(newPassword: string): Observable<any> {
+		const formData = new FormData();
+		formData.append("newPassword", newPassword);
+		return this._http.post<ApiResponse<any>>(`${environment.baseUrl}UserAccount/ChangePassword`, formData);
+	}
 }

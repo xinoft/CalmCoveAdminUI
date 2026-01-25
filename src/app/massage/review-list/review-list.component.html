@@ -1,0 +1,140 @@
+<div>
+    <h4 class="mb-4">Review Management</h4>
+    <p class="mb-4">This screen allows administrators to manage customer reviews for massage services and approve or
+        decline them.</p>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="mb-3">
+                <label class="form-label">Filter by Status</label>
+                <div class="select-wrapper">
+                    <select class="form-control" [(ngModel)]="selectedApprovalStatus" (change)="onApprovalStatusChange()">
+                        <option *ngFor="let status of approvalStatusOptions" [value]="status.value">
+                            {{ status.label }}
+                        </option>
+                    </select>
+                    <i class="ti ti-chevron-down dropdown-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <p-table [value]="reviewList" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '60rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>Customer</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-review>
+                <tr>
+                    <td>{{ review.Id }}</td>
+                    <td>
+                        <span class="comment-text" [title]="review.Booking.CustomerAccount.Name">
+                            {{ review.Booking.CustomerAccount.FirstName }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="star-rating">
+                            <i class="ti ti-star-filled" [style.color]="getStarColor(review.Star)"></i>
+                            <span class="ms-2">{{ review.Star }}</span>
+                        </div>
+                    </td>
+                    <td style="width: 40%;">
+                        <span class="comment-text">
+                            {{ review.Comment.length > 50 ? review.Comment.substring(0, 50) + '...' : review.Comment }}
+                        </span>
+                    </td>
+                    <td>
+                        <span [ngClass]="'badge ' + getApprovalStatusClass(review.ApprovalStatus)">
+                            {{ getApprovalStatusLabel(review.ApprovalStatus) }}
+                        </span>
+                    </td>
+                    <td>{{ review.CreatedTime | date: 'short' }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-icon item-edit" (click)="openDetailsModal(review)"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="View Details"><i
+                                class="text-primary ti ti-eye"></i></a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        <p class="text-muted">No reviews found</p>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <!-- Review Details Modal -->
+    <p-dialog [(visible)]="showDetailsModal" [header]="'Review Details'" [modal]="true" [style]="{width: '40vw'}"
+        (onHide)="closeDetailsModal()" appendTo="body">
+        <div *ngIf="selectedReview" class="review-details">
+            <!-- First Row: Review ID, Customer, Rating, Status -->
+            <div class="modal-header-row">
+                <div class="header-item">
+                    <label>Review ID</label>
+                    <p>{{ selectedReview.Id }}</p>
+                </div>
+                <div class="header-item">
+                    <label>Customer</label>
+                    <p>{{ selectedReview.Booking.CustomerAccount.FirstName }}</p>
+                </div>
+                <div class="header-item">
+                    <label>Rating</label>
+                    <p>
+                        <i class="ti ti-star-filled" [style.color]="getStarColor(selectedReview.Star)"></i>
+                        <span class="ms-1">{{ selectedReview.Star }}</span>
+                    </p>
+                </div>
+                <div class="header-item">
+                    <label>Status</label>
+                    <p>
+                        <span [ngClass]="'badge ' + getApprovalStatusClass(selectedReview.ApprovalStatus)">
+                            {{ getApprovalStatusLabel(selectedReview.ApprovalStatus) }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top: 2%;">
+                <div>
+                    <label>Massage Name</label>
+                    <p>{{ selectedReview.Booking.Massage.Name }}</p>
+                </div>
+            </div>
+            <div class="mb-3" style="margin-top: 2%;">
+                <label class="form-label">Comment</label>
+                <p class="review-comment">{{ selectedReview.Comment }}</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Submitted Date</label>
+                <p>{{ selectedReview.CreatedTime | date: 'short' }}</p>
+            </div>
+
+            <!-- Action Buttons - Show only if Pending -->
+            <div class="modal-actions" *ngIf="selectedReview.ApprovalStatus === 0">
+                <button class="btn btn-success me-2" (click)="approveReview()">
+                    <i class="ti ti-check me-2"></i> Approve
+                </button>
+                <button class="btn btn-danger" (click)="declineReview()">
+                    <i class="ti ti-x me-2"></i> Decline
+                </button>
+            </div>
+
+            <!-- Status Info - Show if already approved/declined -->
+            <div class="alert alert-info" *ngIf="selectedReview.ApprovalStatus !== 0">
+                <p class="mb-0">This review has already been {{ selectedReview.ApprovalStatus === 1 ? 'Approved' :
+                    'Declined' }} and cannot be modified.</p>
+            </div>
+        </div>
+    </p-dialog>
+</div>
